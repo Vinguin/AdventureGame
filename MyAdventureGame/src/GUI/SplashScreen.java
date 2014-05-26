@@ -24,7 +24,6 @@ public class SplashScreen extends JFrame implements ActionListener
 				super("Splash");
 				_adventure = adv;
 				
-				
 				this.setSize(500, 350);
 				this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				this.setContentPane(new Background("res/Wallpaper/splashscreen.jpg"));
@@ -65,6 +64,7 @@ public class SplashScreen extends JFrame implements ActionListener
 							MediaTracker mt = new MediaTracker(this);
 							img = Toolkit.getDefaultToolkit().getImage(imagefile);
 							mt.addImage(img, 0);
+							
 							try
 							{
 								mt.waitForAll();

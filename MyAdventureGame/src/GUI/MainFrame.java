@@ -11,10 +11,13 @@ public class MainFrame extends JFrame
 			{
 				super();
 				this.setSize(800, 600);
+				this.setVisible(true);
+				this.setLocationRelativeTo(null);
 			}
 
 		/**
 		 * Füllt das JFrame mit Content
+		 * 
 		 * @param panel
 		 */
 		public void setContent(JPanel panel)
@@ -25,6 +28,7 @@ public class MainFrame extends JFrame
 
 		/**
 		 * Gibt das aktuelle Panel wieder
+		 * 
 		 * @return
 		 */
 		public JPanel getCurrentPanel()
