@@ -1,5 +1,6 @@
 package Backend;
 
+import GUI.GamePanel;
 import GUI.MainFrame;
 import GUI.MenuPanel;
 import GUI.SplashScreen;
@@ -10,6 +11,7 @@ public class AdventureMain
 		public SplashScreen _splashScreen;
 		public MenuPanel _menuPanel;
 		public MainFrame _frame;
+		public GamePanel _gamePanel;
 
 		public static void main(String[] args)
 			{

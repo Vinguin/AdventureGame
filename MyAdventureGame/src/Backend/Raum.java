@@ -2,8 +2,8 @@ package Backend;
 
 public class Raum
 	{
-		String _raumBezeichnung;
-		
+		private String _raumBezeichnung;
+		private int borderX, borderY;
 		
 		
 		public Raum(String raumtyp)
