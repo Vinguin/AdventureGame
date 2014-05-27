@@ -12,6 +12,8 @@ public class AdventureMain
 		public MenuPanel _menuPanel;
 		public MainFrame _frame;
 		public GamePanel _gamePanel;
+		public int _gameTime;
+		public World _world;
 
 		public static void main(String[] args)
 			{

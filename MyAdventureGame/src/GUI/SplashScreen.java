@@ -3,9 +3,12 @@ package GUI;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,7 +26,7 @@ public class SplashScreen extends JFrame implements ActionListener
 			{
 				super("Splash");
 				_adventure = adv;
-				
+
 				this.setSize(500, 350);
 				this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				this.setContentPane(new Background("res/Wallpaper/splashscreen.jpg"));
@@ -38,6 +41,7 @@ public class SplashScreen extends JFrame implements ActionListener
 				this.setVisible(true);
 				timer.start();
 
+
 			}
 
 		@Override
@@ -46,7 +50,7 @@ public class SplashScreen extends JFrame implements ActionListener
 				// Sobald der Timer aubgelaufen ist, schließt sich der
 				// SplashScreen und das Menu öffnet sich
 				this.dispose();
-				
+
 				_adventure._menuPanel = new MenuPanel(_adventure);
 				_adventure._frame = new MainFrame();
 				_adventure._frame.setContent(_adventure._menuPanel);
@@ -64,7 +68,7 @@ public class SplashScreen extends JFrame implements ActionListener
 							MediaTracker mt = new MediaTracker(this);
 							img = Toolkit.getDefaultToolkit().getImage(imagefile);
 							mt.addImage(img, 0);
-							
+
 							try
 							{
 								mt.waitForAll();

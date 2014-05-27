@@ -6,10 +6,14 @@ public class Player
 	{
 		private String spielername;
 		private int currentX, currentY;
+		private Raum currentRaum;
 
 		public Player(String bezeichnung)
 			{
 				spielername = bezeichnung;
+				currentX = 300;
+				currentY = 400;
+				currentRaum = null;
 			}
 
 		
@@ -32,5 +36,21 @@ public class Player
 		public Point getPlayerPosi()
 			{
 				return new Point(currentX, currentY);
+			}
+		
+		public void setNewRaum(Raum neuRaum)
+			{
+				currentRaum = neuRaum;
+			}
+		
+		
+		
+		/**
+		 * Gibt den Aktuellen Raum des Spielers wieder.
+		 * @return
+		 */
+		public Raum getCurrentRaum()
+			{
+				return currentRaum;
 			}
 	}

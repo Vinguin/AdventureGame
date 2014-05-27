@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import Backend.AdventureMain;
+import Backend.World;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel implements ActionListener
@@ -22,7 +23,7 @@ public class GamePanel extends JPanel implements ActionListener
 				_adventure = adv;
 				this.setVisible(true);
 				this.setSize(adv._frame.getWidth(), adv._frame.getHeight());
-			
+				adv._world = new World();
 				tm.start();
 
 			}
@@ -38,6 +39,7 @@ public class GamePanel extends JPanel implements ActionListener
 		public void actionPerformed(ActionEvent arg0)
 			{
 				// TODO Auto-generated method stub
+				++_adventure._gameTime;
 				paintComponent(getGraphics());
 			}
 	}
