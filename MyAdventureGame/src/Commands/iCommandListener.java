@@ -29,6 +29,8 @@ public class iCommandListener implements ActionListener
 						break;
 					case "quit": new ButtonQuit().execute();
 						break;
+					case "map": new ButtonMap(_adventure).execute();
+					break;
 					default:
 						break;
 					}

@@ -9,35 +9,41 @@ import java.util.Set;
 public class World
 	{
 		private int weltBreite = 20, weltHöhe = 20;
-		private Raum[][] welt = new Raum[weltBreite][weltHöhe];
+		public Raum[][] welt = new Raum[weltBreite][weltHöhe];
 		private List<Raum> räume = new ArrayList<>();
-		private int test;
+		private int test, test1;
 
 		public World()
 			{
 				createWorld();
-				System.out.println(test);
+				System.out.println("Anzahl der Räume, die Abstand 1 zum Raum haben: " + getAllAvailableRooms().size());
+				System.out.println("Anzahl der Räume in der Welt: " + test);
+
 			}
 
 		public void createWorld()
 			{
 				räume = getNewRoom(20);
 				welt[10][10] = new SpawnRaum("Spawnraum");
+				Set<Point> potencialRooms = new HashSet<>();
+				potencialRooms.addAll(getAvailableRooms(10, 10));
+				
+				List<Point> verfügbareRäume= new ArrayList<>(potencialRooms);
 
 				for (int i = 0; i < räume.size(); ++i)
 				{
 					Raum raum = räume.get(i);
 
 					// Alle verfügbaren Räume
-					List<Point> temp1 = new ArrayList<>(getAvailableRooms());
-					int zufallsIndex = getRandomXY(0, temp1.size() - 1);
+					int zufallsIndex = getRandomXY(0, verfügbareRäume.size() - 1);
 
-					// Füge Zufalls raum hinzu
-					Point koordinate = temp1.get(zufallsIndex);
+					// Füge Zufallsraum hinzu
+					Point koordinate = verfügbareRäume.get(zufallsIndex);
 					welt[koordinate.x][koordinate.y] = raum;
-					
-					System.out.println(temp1.size());
-					
+
+					// Update PotentialRooms
+					potencialRooms.addAll(getAvailableRooms(koordinate.x, koordinate.y));
+
 				}
 			}
 
@@ -76,41 +82,65 @@ public class World
 		/**
 		 * Gibt alle Räume aus, dessen Distanz zu einem Raum 1 betragen.
 		 * 
-		 * @param x
-		 * @param y
 		 * @return
 		 */
-		public Set<Point> getAvailableRooms()
+		public Set<Point> getAllAvailableRooms()
 			{
 				Set<Point> temp = new HashSet<>();
 
 				// Läuft die das WeltArray ab und findet es einen Raum, fügt er
 				// alle freien Nachbarräume in das HashSet hinzu.
 
-				for (int i = 0; i < weltHöhe; ++i)
+				for (int i = 0; i < weltBreite; ++i)
 				{
-					for (int j = 0; j < weltBreite; ++j)
+					for (int j = 0; j < weltHöhe; ++j)
 					{
+						++test1;
+
 						if (welt[i][j] instanceof Raum)
 						{
-							
+							++test;
+
 							// Darunter
-							if (welt[i + 1][j] == null && i + 1 <= weltHöhe && j <= weltBreite)
+							if (welt[i + 1][j] == null && i + 1 <= weltBreite)
 								temp.add(new Point(i + 1, j));
 							// Darüber
-							else if (welt[i - 1][j] == null && i - 1 <= weltHöhe && j <= weltBreite)
+							else if (welt[i - 1][j] == null && i - 1 <= weltBreite)
 								temp.add(new Point(i - 1, j));
 							// Rechts
-							else if (welt[i][j + 1] == null && i <= weltHöhe && j + 1 <= weltBreite)
-								temp.add(new Point(i - 1, j));
+							else if (welt[i][j + 1] == null && j + 1 <= weltHöhe)
+								temp.add(new Point(i, j + 1));
 							// Links
-							else if (welt[i][j - 1] == null && i <= weltHöhe && j - 1 <= weltBreite)
-								temp.add(new Point(i - 1, j));
-						} else
-							++test;
+							else if (welt[i][j - 1] == null && j - 1 <= weltHöhe)
+								temp.add(new Point(i, j - 1));
+						}
 					}
 				}
 
 				return temp;
+			}
+
+		public Set<Point> getAvailableRooms(int i, int j)
+			{
+
+				if (welt[i][j] instanceof Raum)
+				{
+					Set<Point> temp = new HashSet<>();
+
+					// Darunter
+					if (welt[i + 1][j] == null && i + 1 <= weltHöhe && j <= weltBreite)
+						temp.add(new Point(i + 1, j));
+					// Darüber
+					if (welt[i - 1][j] == null && i - 1 <= weltHöhe && j <= weltBreite)
+						temp.add(new Point(i - 1, j));
+					// Rechts
+					if (welt[i][j + 1] == null && i <= weltHöhe && j + 1 <= weltBreite)
+						temp.add(new Point(i, j + 1));
+					// Links
+					if (welt[i][j - 1] == null && i <= weltHöhe && j - 1 <= weltBreite)
+						temp.add(new Point(i, j - 1));
+					return temp;
+				} else
+					return null;
 			}
 	}
