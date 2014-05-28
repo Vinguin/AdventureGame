@@ -1,5 +1,6 @@
 package Backend;
 
+import java.awt.Dimension;
 import java.awt.Point;
 
 public class Player
@@ -7,18 +8,21 @@ public class Player
 		private String spielername;
 		private int currentX, currentY;
 		private Raum currentRaum;
+		private AdventureMain _adventure;
 
-		public Player(String bezeichnung)
+		public Player(String bezeichnung, String raum, AdventureMain adv)
 			{
 				spielername = bezeichnung;
 				currentX = 300;
 				currentY = 400;
-				currentRaum = null;
+				_adventure = adv;
+				setRaumByName(raum);
+
 			}
 
-		
 		/**
 		 * Legt die Position des Spielers fest.
+		 * 
 		 * @param x
 		 * @param y
 		 */
@@ -27,29 +31,60 @@ public class Player
 				currentX = x;
 				currentY = y;
 			}
-		
-		
+
 		/**
 		 * Gibt die Spielerposi als Typ- Point zurück
+		 * 
 		 * @return
 		 */
 		public Point getPlayerPosi()
 			{
 				return new Point(currentX, currentY);
 			}
-		
-		public void setNewRaum(Raum neuRaum)
-			{
-				currentRaum = neuRaum;
-			}
-		
-		
-		
+
 		/**
-		 * Gibt den Aktuellen Raum des Spielers wieder.
+		 * Wechselt den Raum des Spielers
+		 * 
+		 * @param neuRaum
+		 */
+		public void setRaumByName(String raum_name)
+			{
+				Dimension worldsize = _adventure._world.getWorldSize();
+
+				int worldwidth = worldsize.width;
+				int worldheight = worldsize.height;
+
+				for (int i = 0; i < worldwidth; ++i)
+				{
+					for (int j = 0; j < worldheight; ++j)
+					{
+
+						if (_adventure._world.welt[i][j] instanceof Raum)
+						{
+							String raumBez = _adventure._world.welt[i][j].getBezeichnung();
+							if (raumBez == raum_name)
+								currentRaum = _adventure._world.welt[i][j];
+						}
+					}
+				}
+			}
+
+		/**
+		 * Gibt Spielerbezeichnung wieder
+		 * 
 		 * @return
 		 */
-		public Raum getCurrentRaum()
+		public String getName()
+			{
+				return spielername;
+			}
+
+		/**
+		 * Gibt den Aktuellen Raum des Spielers wieder.
+		 * 
+		 * @return
+		 */
+		public Raum getRaum()
 			{
 				return currentRaum;
 			}

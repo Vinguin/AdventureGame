@@ -28,29 +28,23 @@ public class GamePanel extends JPanel
 				_adventure = adv;
 				this.setVisible(true);
 				this.setSize(adv._frame.getWidth(), adv._frame.getHeight());
-				
-				adv._world = new World();
 
 				
-				
-				//ButtonPanel
+
+				// ButtonPanel
 				JPanel buttonPanel = new JPanel();
 				buttonPanel.setLayout(new FlowLayout());
 				buttonPanel.setVisible(true);
 				JButton getMap = new JButton("Map");
-			
-				getMap.addActionListener(new iCommandListener("map",adv));
+
+				getMap.addActionListener(new iCommandListener("map", adv));
 				buttonPanel.add(getMap);
-				
+
 				this.add(buttonPanel, BorderLayout.NORTH);
-				
-						
-						
-				
-				//GameplayPanel, hier findet die Dynamik statt.
-				 gameplayPanel = new GamePlayPanel();				
+
+				// GameplayPanel, hier findet die Dynamik statt.
+				gameplayPanel = new GamePlayPanel();
 				this.add(gameplayPanel, BorderLayout.CENTER);
-				
 
 			}
 
@@ -78,8 +72,5 @@ public class GamePanel extends JPanel
 						paintComponent(this.getGraphics());
 					}
 			}
-		 public JPanel getPlayPanel()
-			 {
-				 return gameplayPanel;
-			 }
+
 	}

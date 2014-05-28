@@ -1,7 +1,7 @@
 package Commands;
 
 import Backend.AdventureMain;
-import GUI.MapPanel;
+import GUI.MapFrame;
 
 public class ButtonMap
 	{
@@ -16,9 +16,7 @@ public class ButtonMap
 	public void execute()
 		{
 			// TODO Auto-generated method stub
-			_adventure.mapPanel = new MapPanel(_adventure._world);
-			_adventure._gamePanel.gameplayPanel.tm.stop();
-			_adventure._frame.setContent(_adventure.mapPanel);
+			_adventure.mapFrame = new MapFrame(_adventure._world);
 			
 			
 		}

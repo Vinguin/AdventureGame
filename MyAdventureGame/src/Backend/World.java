@@ -1,5 +1,6 @@
 package Backend;
 
+import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -8,31 +9,35 @@ import java.util.Set;
 
 public class World
 	{
+		private AdventureMain _adventure;
 		private int weltBreite = 20, weltHöhe = 20;
 		public Raum[][] welt = new Raum[weltBreite][weltHöhe];
 		private List<Raum> räume = new ArrayList<>();
 		private int test, test1;
+		public Set<Point> freieRaeume = new HashSet<>();
 
-		public World()
+		public World(AdventureMain adv)
 			{
 				createWorld();
+				_adventure = adv;
 				System.out.println("Anzahl der Räume, die Abstand 1 zum Raum haben: " + getAllAvailableRooms().size());
 				System.out.println("Anzahl der Räume in der Welt: " + test);
+				freieRaeume = getAllAvailableRooms();
 
 			}
 
 		public void createWorld()
 			{
-				räume = getNewRoom(20);
-				welt[10][10] = new SpawnRaum("Spawnraum");
+				räume = getNewRoom(100);
+				welt[10][10] = new SpawnRaum("Spawnraum", _adventure);
 				Set<Point> potencialRooms = new HashSet<>();
 				potencialRooms.addAll(getAvailableRooms(10, 10));
-				
-				List<Point> verfügbareRäume= new ArrayList<>(potencialRooms);
+				List<Point> verfügbareRäume = new ArrayList<>(potencialRooms);
 
 				for (int i = 0; i < räume.size(); ++i)
 				{
 					Raum raum = räume.get(i);
+					verfügbareRäume = new ArrayList<>(potencialRooms);
 
 					// Alle verfügbaren Räume
 					int zufallsIndex = getRandomXY(0, verfügbareRäume.size() - 1);
@@ -40,11 +45,16 @@ public class World
 					// Füge Zufallsraum hinzu
 					Point koordinate = verfügbareRäume.get(zufallsIndex);
 					welt[koordinate.x][koordinate.y] = raum;
+					verfügbareRäume.remove(zufallsIndex);
 
 					// Update PotentialRooms
 					potencialRooms.addAll(getAvailableRooms(koordinate.x, koordinate.y));
+					potencialRooms.remove(new Point(koordinate.x, koordinate.y));
 
 				}
+				System.out.println(verfügbareRäume.size());
+				System.out.println(potencialRooms.size());
+
 			}
 
 		/**
@@ -60,7 +70,7 @@ public class World
 
 				for (int i = 0; i < anzahl; ++i)
 				{
-					temp.add(new Raum("Raum" + Integer.toString(i)));
+					temp.add(new Raum("Raum" + Integer.toString(i), _adventure));
 				}
 
 				return temp;
@@ -95,7 +105,6 @@ public class World
 				{
 					for (int j = 0; j < weltHöhe; ++j)
 					{
-						++test1;
 
 						if (welt[i][j] instanceof Raum)
 						{
@@ -105,13 +114,13 @@ public class World
 							if (welt[i + 1][j] == null && i + 1 <= weltBreite)
 								temp.add(new Point(i + 1, j));
 							// Darüber
-							else if (welt[i - 1][j] == null && i - 1 <= weltBreite)
+							if (welt[i - 1][j] == null && i - 1 <= weltBreite)
 								temp.add(new Point(i - 1, j));
 							// Rechts
-							else if (welt[i][j + 1] == null && j + 1 <= weltHöhe)
+							if (welt[i][j + 1] == null && j + 1 <= weltHöhe)
 								temp.add(new Point(i, j + 1));
 							// Links
-							else if (welt[i][j - 1] == null && j - 1 <= weltHöhe)
+							if (welt[i][j - 1] == null && j - 1 <= weltHöhe)
 								temp.add(new Point(i, j - 1));
 						}
 					}
@@ -128,19 +137,31 @@ public class World
 					Set<Point> temp = new HashSet<>();
 
 					// Darunter
-					if (welt[i + 1][j] == null && i + 1 <= weltHöhe && j <= weltBreite)
+					if (i + 1 <= weltBreite && welt[i + 1][j] == null)
 						temp.add(new Point(i + 1, j));
 					// Darüber
-					if (welt[i - 1][j] == null && i - 1 <= weltHöhe && j <= weltBreite)
+					if (i - 1 <= weltBreite && welt[i - 1][j] == null)
 						temp.add(new Point(i - 1, j));
 					// Rechts
-					if (welt[i][j + 1] == null && i <= weltHöhe && j + 1 <= weltBreite)
+					if (j + 1 <= weltHöhe && welt[i][j + 1] == null)
 						temp.add(new Point(i, j + 1));
 					// Links
-					if (welt[i][j - 1] == null && i <= weltHöhe && j - 1 <= weltBreite)
+					if (j - 1 <= weltHöhe && welt[i][j - 1] == null)
 						temp.add(new Point(i, j - 1));
+					System.out.println(temp.size());
 					return temp;
 				} else
 					return null;
+			}
+
+		public void setWorldSize(int breite, int höhe)
+			{
+				weltBreite = breite;
+				weltHöhe = höhe;
+			}
+
+		public Dimension getWorldSize()
+			{
+				return new Dimension(weltBreite, weltHöhe);
 			}
 	}

@@ -3,9 +3,9 @@ package Backend;
 public class SpawnRaum extends Raum
 	{
 
-		public SpawnRaum(String raumtyp)
+		public SpawnRaum(String raumtyp, AdventureMain adv)
 			{
-				super(raumtyp);
+				super(raumtyp, adv);
 			}
 
 	}
