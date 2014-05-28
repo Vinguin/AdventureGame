@@ -1,12 +1,29 @@
 package Commands;
 
-public class GoEast implements SteuerZentrale
+import java.awt.Point;
+
+import Backend.AdventureMain;
+import Backend.Raum;
+
+public class GoEast extends SteuerZentrale implements GoManager 
 	{
+
+	public GoEast(String string, AdventureMain adv)
+		{
+			super(string, adv);
+		}
 
 	@Override
 	public void go()
 		{
-			// TODO Auto-generated method stub
+			Point playerKoordinaten = _adventure._spieler.getRaumLocation();
+			int x = playerKoordinaten.x;
+			int y = playerKoordinaten.y;
+			Raum currentRoom = _adventure._spieler.getRaum();
+			
+			if(_adventure._world.istRaum(x+1, y))
+				_adventure._spieler.setRaumLocation(x+1, y);
+							
 			
 		}
 

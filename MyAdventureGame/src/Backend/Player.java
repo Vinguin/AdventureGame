@@ -6,15 +6,13 @@ import java.awt.Point;
 public class Player
 	{
 		private String spielername;
-		private int currentX, currentY;
+		private int raumX, raumY;
 		private Raum currentRaum;
 		private AdventureMain _adventure;
 
 		public Player(String bezeichnung, String raum, AdventureMain adv)
 			{
-				spielername = bezeichnung;
-				currentX = 300;
-				currentY = 400;
+				spielername = bezeichnung;			
 				_adventure = adv;
 				setRaumByName(raum);
 
@@ -26,10 +24,19 @@ public class Player
 		 * @param x
 		 * @param y
 		 */
-		public void setPlayerPosition(int x, int y)
+		public void setRaumLocation(int x, int y)
 			{
-				currentX = x;
-				currentY = y;
+				//Spieler ist nicht mehr registriert im alten Raum
+				
+				currentRaum.setPlayerHere(false);
+				
+				
+				//Packe Spieler in den neuen Raum.
+				raumX = x;
+				raumY = y;
+				currentRaum = _adventure._world.welt[x][y];
+				currentRaum.setPlayerHere(true);
+
 			}
 
 		/**
@@ -37,9 +44,9 @@ public class Player
 		 * 
 		 * @return
 		 */
-		public Point getPlayerPosi()
+		public Point getRaumLocation()
 			{
-				return new Point(currentX, currentY);
+				return new Point(raumX, raumY);
 			}
 
 		/**
@@ -71,6 +78,8 @@ public class Player
 							{
 								currentRaum = _adventure._world.welt[i][j];
 								_adventure._world.welt[i][j].setPlayerHere(true);
+								setRaumLocation(i, j);
+								
 							}
 
 							raumEnthalten = true;

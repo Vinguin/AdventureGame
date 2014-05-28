@@ -100,17 +100,21 @@ public class World
 						{
 
 							// Darunter
-							if (welt[i + 1][j] == null && i + 1 <= weltBreite)
-								temp.add(new Point(i + 1, j));
+							if (i + 1 <= weltBreite-1 && i + 1 > 0)
+								if (welt[i + 1][j] == null)
+									temp.add(new Point(i + 1, j));
 							// Darüber
-							if (welt[i - 1][j] == null && i - 1 <= weltBreite)
-								temp.add(new Point(i - 1, j));
+							if (i - 1 <= weltBreite-1 && i - 1 > 0)
+								if (welt[i - 1][j] == null)
+									temp.add(new Point(i - 1, j));
 							// Rechts
-							if (welt[i][j + 1] == null && j + 1 <= weltHöhe)
-								temp.add(new Point(i, j + 1));
+							if (j + 1 <= weltHöhe-1 && j + 1 > 0)
+								if (welt[i][j + 1] == null)
+									temp.add(new Point(i, j + 1));
 							// Links
-							if (welt[i][j - 1] == null && j - 1 <= weltHöhe)
-								temp.add(new Point(i, j - 1));
+							if (j - 1 <= weltHöhe-1 && j - 1 > 0)
+								if (welt[i][j - 1] == null)
+									temp.add(new Point(i, j - 1));
 						}
 
 				return temp;
@@ -124,19 +128,19 @@ public class World
 					Set<Point> temp = new HashSet<>();
 
 					// Darunter
-					if (i + 1 <= weltBreite && i + 1 > 0)
+					if (i + 1 <= weltBreite-1 && i + 1 > 0)
 						if (welt[i + 1][j] == null)
 							temp.add(new Point(i + 1, j));
 					// Darüber
-					if (i - 1 <= weltBreite && i - 1 > 0)
+					if (i - 1 <= weltBreite-1 && i - 1 > 0)
 						if (welt[i - 1][j] == null)
 							temp.add(new Point(i - 1, j));
 					// Rechts
-					if (j + 1 <= weltHöhe && j + 1 > 0)
+					if (j + 1 <= weltHöhe-1 && j + 1 > 0)
 						if (welt[i][j + 1] == null)
 							temp.add(new Point(i, j + 1));
 					// Links
-					if (j - 1 <= weltHöhe && j - 1 > 0)
+					if (j - 1 <= weltHöhe-1 && j - 1 > 0)
 						if (welt[i][j - 1] == null)
 							temp.add(new Point(i, j - 1));
 					return temp;

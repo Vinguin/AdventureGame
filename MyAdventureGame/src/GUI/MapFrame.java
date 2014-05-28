@@ -16,13 +16,14 @@ import Backend.ImplMap;
 public class MapFrame extends JFrame implements ActionListener
 	{
 		private ImplMap implMap;
-		private Timer tm = new Timer(1000, this);
+		private Timer tm = new Timer(100, this);
 
 		public MapFrame(AdventureMain adv)
 			{
-				this.setSize(300, 300);
+				this.setSize(290, 310);
 				this.setVisible(true);
 				this.setContentPane(new MapPanel(adv));
+				this.setResizable(false);
 				implMap = new ImplMap(adv);
 				tm.start();
 
@@ -33,7 +34,7 @@ public class MapFrame extends JFrame implements ActionListener
 
 				public MapPanel(AdventureMain adv)
 					{
-						this.setSize(300, 300);
+//						this.setSize(300, 300);
 						this.setVisible(true);
 
 					}

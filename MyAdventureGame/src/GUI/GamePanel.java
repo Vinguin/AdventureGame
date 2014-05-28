@@ -13,6 +13,7 @@ import javax.swing.Timer;
 
 import Backend.AdventureMain;
 import Backend.World;
+import Commands.SteuerZentrale;
 import Commands.iCommandListener;
 
 @SuppressWarnings("serial")
@@ -42,7 +43,19 @@ public class GamePanel extends JPanel
 				buttonPanel.add(getMap);
 				
 				JButton goNorth= new JButton("go-North");
+				JButton goSouth= new JButton("go-South");
+				JButton goEast= new JButton("go-East");
+				JButton goWest= new JButton("go-West");
 				
+				goNorth.addActionListener(new SteuerZentrale("goNorth", adv));
+				goSouth.addActionListener(new SteuerZentrale("goSouth", adv));
+				goEast.addActionListener(new SteuerZentrale("goEast", adv));
+				goWest.addActionListener(new SteuerZentrale("goWest", adv));
+
+				buttonPanel.add(goNorth);
+				buttonPanel.add(goWest);
+				buttonPanel.add(goEast);
+				buttonPanel.add(goSouth);
 				
 
 				this.add(buttonPanel, BorderLayout.NORTH);

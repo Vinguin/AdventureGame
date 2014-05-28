@@ -54,8 +54,8 @@ public class ImplMap
 				{
 					for (int j = 0; j < 20; ++j)
 					{
-						int x = i * (blockgroesse + 3) + 10;
-						int y = j * (blockgroesse + 3) + 10;
+						int x = i * (blockgroesse + 3)+2;
+						int y = j * (blockgroesse + 3)+2;
 
 						if (_adventure._world.welt[i][j] == null)
 						{
