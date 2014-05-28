@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import World.WasserBiom;
+
 public class ImplMap
 	{
 		AdventureMain _adventure;
+		int blockgroesse = 7;
 
 		public ImplMap(AdventureMain adv)
 			{
@@ -18,13 +21,14 @@ public class ImplMap
 
 		public void drawRaum(String raumtyp, Graphics g, int x, int y)
 			{
-				int blockgroesse = 11;
 
-				if (raumtyp.toLowerCase().equals("leer"))
+				if (raumtyp.toLowerCase().equals("wasser"))
 				{
 					g.setColor(Color.BLACK);
 					g.drawRect(x, y, blockgroesse, blockgroesse);
-					g.setColor(Color.WHITE);
+					
+					
+					g.setColor(new Color(0,178,238));
 					g.fillRect(x, y, blockgroesse, blockgroesse);
 
 				} else if (raumtyp.toLowerCase().equals("!leer"))
@@ -49,15 +53,14 @@ public class ImplMap
 		public void getMapData(Graphics g)
 			{
 
-				int blockgroesse = 11;
-				for (int i = 0; i < 20; ++i)
+				for (int i = 0; i < _adventure._world.getWorldSize().height; ++i)
 				{
-					for (int j = 0; j < 20; ++j)
+					for (int j = 0; j < _adventure._world.getWorldSize().width; ++j)
 					{
 						int x = i * (blockgroesse + 3)+2;
 						int y = j * (blockgroesse + 3)+2;
 
-						if (_adventure._world.welt[i][j] == null)
+						if (_adventure._world.alpha[i][j] instanceof WasserBiom)
 						{
 							drawRaum("leer", g, x, y);
 
@@ -65,7 +68,7 @@ public class ImplMap
 						{
 							drawRaum("!leer", g, x, y);
 							
-							if (_adventure._world.welt[i][j].isPlayerHere())
+							if (_adventure._world.alpha[i][j].isPlayerHere())
 								drawRaum("spieler", g, x, y);
 						}
 

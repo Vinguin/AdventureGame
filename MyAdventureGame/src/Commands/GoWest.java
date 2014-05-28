@@ -2,8 +2,9 @@ package Commands;
 
 import java.awt.Point;
 
+import World.Raum;
+
 import Backend.AdventureMain;
-import Backend.Raum;
 
 public class GoWest extends SteuerZentrale implements GoManager
 	{

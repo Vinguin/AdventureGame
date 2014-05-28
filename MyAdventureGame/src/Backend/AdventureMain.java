@@ -3,6 +3,8 @@ package Backend;
 import java.util.ArrayList;
 import java.util.List;
 
+import World.World;
+
 import GUI.GamePanel;
 import GUI.MainFrame;
 import GUI.MapFrame;

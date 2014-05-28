@@ -20,7 +20,7 @@ public class MapFrame extends JFrame implements ActionListener
 
 		public MapFrame(AdventureMain adv)
 			{
-				this.setSize(290, 310);
+				this.setSize(1000, 1000);
 				this.setVisible(true);
 				this.setContentPane(new MapPanel(adv));
 				this.setResizable(false);

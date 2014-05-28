@@ -1,4 +1,6 @@
-package Backend;
+package World;
+
+import Backend.AdventureMain;
 
 public class ArenaRaum extends Raum
 	{

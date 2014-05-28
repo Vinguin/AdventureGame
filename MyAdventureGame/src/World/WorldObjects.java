@@ -1,4 +1,4 @@
-package Backend;
+package World;
 
 public class WorldObjects
 	{

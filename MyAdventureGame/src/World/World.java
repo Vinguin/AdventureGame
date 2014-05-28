@@ -1,4 +1,4 @@
-package Backend;
+package World;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -7,46 +7,87 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import Backend.AdventureMain;
+
 public class World
 	{
 		private AdventureMain _adventure;
-		private int weltBreite = 20, weltHöhe = 20;
-		public Raum[][] welt = new Raum[weltBreite][weltHöhe];
+		private int weltBreite = 80, weltHöhe = 80;
+		public Raum[][] alpha = new Raum[weltBreite][weltHöhe];
+		public Raum[][] beta = new Raum[weltBreite][weltHöhe];
+		public Raum[][] gamma = new Raum[weltBreite][weltHöhe];
+
 		private List<Raum> räume = new ArrayList<>();
 		public Set<Point> freieRaeume = new HashSet<>();
 
 		public World(AdventureMain adv)
 			{
-				createWorld();
+				createWorld(alpha, "Spawnraum", getRandomXY(20, 1000));
+
+				createWorld(alpha, "Romeo", getRandomXY(20, 500));
+				createWorld(alpha, "Romeo1", getRandomXY(20, 500));
+				createWorld(alpha, "Romeo2", getRandomXY(20, 500));
+				createWorld(alpha, "Romeo3", getRandomXY(20, 500));
+				createWorld(alpha, "Romeo4", getRandomXY(20, 500));
+				createWorld(alpha, "Romeo5", getRandomXY(20, 500));
+				createWorld(alpha, "Romeo6", getRandomXY(20, 500));
+				createWorld(alpha, "Romeo7", getRandomXY(20, 500));
+
 				_adventure = adv;
 				freieRaeume = getAllAvailableRooms();
 
 			}
-
-		public void createWorld()
+		
+		public void setBiome(Raum[][] kontinent)
 			{
-				räume = getNewRoom(100);
-				welt[10][10] = new Raum("Spawnraum", _adventure);
+				for (int i = 0; i < weltHöhe; ++i)
+					for (int j = 0; j < weltBreite; ++j)
+						
+						
+			
+			}
+		
+		
+
+		/**
+		 * Erschafft einen Kontinent auf Zufallsbasis.
+		 * 
+		 * @param kontinent
+		 * @param raum0
+		 * @param kontinentgoesse
+		 */
+		public void createWorld(Raum[][] kontinent, String raum0, int kontinentgoesse)
+			{
+				räume = getNewRoom(kontinentgoesse);
+				int y = getRandomXY(0, weltBreite - 1);
+				int x = getRandomXY(0, weltHöhe - 1);
+				kontinent[x][y] = new Raum(raum0, _adventure);
 				Set<Point> potencialRooms = new HashSet<>();
-				potencialRooms.addAll(getAvailableRooms(10, 10));
+
+				potencialRooms.addAll(getAvailableRooms(x, y));
 				List<Point> verfügbareRäume = new ArrayList<>(potencialRooms);
 
 				for (int i = 0; i < räume.size(); ++i)
 				{
 					Raum raum = räume.get(i);
 					verfügbareRäume = new ArrayList<>(potencialRooms);
+					if (verfügbareRäume.size() == 0)
+					{
+						i = räume.size();
+					} else
+					{
+						// Alle verfügbaren Räume
+						int zufallsIndex = getRandomXY(0, verfügbareRäume.size() - 1);
 
-					// Alle verfügbaren Räume
-					int zufallsIndex = getRandomXY(0, verfügbareRäume.size() - 1);
+						// Füge Zufallsraum hinzu
+						Point koordinate = verfügbareRäume.get(zufallsIndex);
+						kontinent[koordinate.x][koordinate.y] = raum;
+						verfügbareRäume.remove(zufallsIndex);
 
-					// Füge Zufallsraum hinzu
-					Point koordinate = verfügbareRäume.get(zufallsIndex);
-					welt[koordinate.x][koordinate.y] = raum;
-					verfügbareRäume.remove(zufallsIndex);
-
-					// Update PotentialRooms
-					potencialRooms.addAll(getAvailableRooms(koordinate.x, koordinate.y));
-					potencialRooms.remove(new Point(koordinate.x, koordinate.y));
+						// Update PotentialRooms
+						potencialRooms.addAll(getAvailableRooms(koordinate.x, koordinate.y));
+						potencialRooms.remove(new Point(koordinate.x, koordinate.y));
+					}
 
 				}
 
@@ -96,24 +137,24 @@ public class World
 
 				for (int i = 0; i < weltBreite; ++i)
 					for (int j = 0; j < weltHöhe; ++j)
-						if (welt[i][j] instanceof Raum)
+						if (alpha[i][j] instanceof Raum)
 						{
 
 							// Darunter
-							if (i + 1 <= weltBreite-1 && i + 1 > 0)
-								if (welt[i + 1][j] == null)
+							if (i + 1 <= weltBreite - 1 && i + 1 >= 0)
+								if (alpha[i + 1][j] == null)
 									temp.add(new Point(i + 1, j));
 							// Darüber
-							if (i - 1 <= weltBreite-1 && i - 1 > 0)
-								if (welt[i - 1][j] == null)
+							if (i - 1 <= weltBreite - 1 && i - 1 >= 0)
+								if (alpha[i - 1][j] == null)
 									temp.add(new Point(i - 1, j));
 							// Rechts
-							if (j + 1 <= weltHöhe-1 && j + 1 > 0)
-								if (welt[i][j + 1] == null)
+							if (j + 1 <= weltHöhe - 1 && j + 1 >= 0)
+								if (alpha[i][j + 1] == null)
 									temp.add(new Point(i, j + 1));
 							// Links
-							if (j - 1 <= weltHöhe-1 && j - 1 > 0)
-								if (welt[i][j - 1] == null)
+							if (j - 1 <= weltHöhe - 1 && j - 1 >= 0)
+								if (alpha[i][j - 1] == null)
 									temp.add(new Point(i, j - 1));
 						}
 
@@ -123,25 +164,25 @@ public class World
 		public Set<Point> getAvailableRooms(int i, int j)
 			{
 				// Wenn die Koordinate ein Raum gehört.
-				if (welt[i][j] instanceof Raum)
+				if (alpha[i][j] instanceof Raum)
 				{
 					Set<Point> temp = new HashSet<>();
 
 					// Darunter
-					if (i + 1 <= weltBreite-1 && i + 1 > 0)
-						if (welt[i + 1][j] == null)
+					if (i + 1 <= weltBreite - 1 && i + 1 >= 0)
+						if (alpha[i + 1][j] == null)
 							temp.add(new Point(i + 1, j));
 					// Darüber
-					if (i - 1 <= weltBreite-1 && i - 1 > 0)
-						if (welt[i - 1][j] == null)
+					if (i - 1 <= weltBreite - 1 && i - 1 >= 0)
+						if (alpha[i - 1][j] == null)
 							temp.add(new Point(i - 1, j));
 					// Rechts
-					if (j + 1 <= weltHöhe-1 && j + 1 > 0)
-						if (welt[i][j + 1] == null)
+					if (j + 1 <= weltHöhe - 1 && j + 1 >= 0)
+						if (alpha[i][j + 1] == null)
 							temp.add(new Point(i, j + 1));
 					// Links
-					if (j - 1 <= weltHöhe-1 && j - 1 > 0)
-						if (welt[i][j - 1] == null)
+					if (j - 1 <= weltHöhe - 1 && j - 1 >= 0)
+						if (alpha[i][j - 1] == null)
 							temp.add(new Point(i, j - 1));
 					return temp;
 				} else
@@ -171,10 +212,10 @@ public class World
 					for (int j = 0; j < weltHöhe; ++j)
 					{
 
-						if (welt[i][j] instanceof Raum)
+						if (alpha[i][j] instanceof Raum)
 						{
 
-							return welt[i][j].isPlayerHere();
+							return alpha[i][j].isPlayerHere();
 
 						}
 					}
@@ -192,6 +233,6 @@ public class World
 		 */
 		public boolean istRaum(int x, int y)
 			{
-				return welt[x][y] instanceof Raum;
+				return alpha[x][y] instanceof Raum;
 			}
 	}

@@ -3,6 +3,8 @@ package Backend;
 import java.awt.Dimension;
 import java.awt.Point;
 
+import World.Raum;
+
 public class Player
 	{
 		private String spielername;
@@ -34,7 +36,7 @@ public class Player
 				//Packe Spieler in den neuen Raum.
 				raumX = x;
 				raumY = y;
-				currentRaum = _adventure._world.welt[x][y];
+				currentRaum = _adventure._world.alpha[x][y];
 				currentRaum.setPlayerHere(true);
 
 			}
@@ -68,16 +70,16 @@ public class Player
 					{
 
 						// Wenn ein Raum gefunden wird.
-						if (_adventure._world.welt[i][j] instanceof Raum)
+						if (_adventure._world.alpha[i][j] instanceof Raum)
 						{
-							String raumBez = _adventure._world.welt[i][j].getBezeichnung();
+							String raumBez = _adventure._world.alpha[i][j].getBezeichnung();
 
 							// Und der Name dem Konstruktur- Parameter des
 							// Spielers entspricht.
 							if (raumBez.equals(raum_name))
 							{
-								currentRaum = _adventure._world.welt[i][j];
-								_adventure._world.welt[i][j].setPlayerHere(true);
+								currentRaum = _adventure._world.alpha[i][j];
+								_adventure._world.alpha[i][j].setPlayerHere(true);
 								setRaumLocation(i, j);
 								
 							}
@@ -116,7 +118,7 @@ public class Player
 				if (_adventure._world.istRaum(x,y))
 				{
 					currentRaum.setPlayerHere(false);
-					currentRaum = _adventure._world.welt[x][y];
+					currentRaum = _adventure._world.alpha[x][y];
 					currentRaum.setPlayerHere(true);
 				}
 			}
