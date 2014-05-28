@@ -60,7 +60,7 @@ public class ImplMap
 						int x = i * (blockgroesse + 3)+2;
 						int y = j * (blockgroesse + 3)+2;
 
-						if (_adventure._world.alpha[i][j] instanceof WasserBiom)
+						if (_adventure._world.alpha[i][j] == null )
 						{
 							drawRaum("leer", g, x, y);
 

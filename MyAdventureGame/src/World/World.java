@@ -42,6 +42,9 @@ public class World
 			{
 				for (int i = 0; i < weltHöhe; ++i)
 					for (int j = 0; j < weltBreite; ++j)
+					{
+						
+					}
 						
 						
 			
