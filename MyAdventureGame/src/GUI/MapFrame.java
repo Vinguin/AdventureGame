@@ -8,8 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import Backend.AdventureMain;
-import Backend.ImplMap;
+import Backend.Global.AdventureMain;
+import Backend.Global.ImplMap;
 
 
 @SuppressWarnings("serial")

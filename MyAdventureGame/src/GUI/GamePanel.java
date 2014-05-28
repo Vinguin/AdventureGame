@@ -18,9 +18,9 @@ import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import javax.swing.Timer;
 
-import Backend.AdventureMain;
-import Commands.SteuerZentrale;
-import Commands.iCommandListener;
+import Backend.Commands.SteuerZentrale;
+import Backend.Commands.iCommandListener;
+import Backend.Global.AdventureMain;
 
 @SuppressWarnings("serial")
 public class GamePanel extends JPanel

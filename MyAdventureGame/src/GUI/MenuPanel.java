@@ -7,8 +7,8 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import Backend.AdventureMain;
-import Commands.iCommandListener;
+import Backend.Commands.iCommandListener;
+import Backend.Global.AdventureMain;
 
 public class MenuPanel extends JPanel
 	{

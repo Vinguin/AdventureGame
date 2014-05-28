@@ -14,7 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
 import javax.swing.Timer;
-import Backend.AdventureMain;
+
+import Backend.Global.AdventureMain;
 
 public class SplashScreen extends JFrame implements ActionListener
 
