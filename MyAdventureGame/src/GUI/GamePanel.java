@@ -72,5 +72,9 @@ public class GamePanel extends JPanel
 						paintComponent(this.getGraphics());
 					}
 			}
+		
+		
+		
+		
 
 	}

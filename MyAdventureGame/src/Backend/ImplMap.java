@@ -9,11 +9,11 @@ import java.util.Set;
 
 public class ImplMap
 	{
-		World _world;
+		AdventureMain _adventure;
 
-		public ImplMap(World worldi)
+		public ImplMap(AdventureMain adv)
 			{
-				_world = worldi;
+				_adventure = adv;
 			}
 
 		public void drawRaum(String raumtyp, Graphics g, int x, int y)
@@ -27,24 +27,26 @@ public class ImplMap
 					g.setColor(Color.WHITE);
 					g.fillRect(x, y, blockgroesse, blockgroesse);
 
-				}
-				if (raumtyp.toLowerCase().equals("!leer"))
+				} else if (raumtyp.toLowerCase().equals("!leer"))
 				{
 					g.setColor(Color.black);
 					g.drawRect(x, y, blockgroesse, blockgroesse);
 
 					g.setColor(Color.GREEN);
 					g.fillRect(x, y, blockgroesse, blockgroesse);
-				}
-				if (raumtyp.toLowerCase().equals("frei"))
+				} else if (raumtyp.toLowerCase().equals("frei"))
 				{
 					g.setColor(Color.GREEN);
+					g.fillRect(x, y, blockgroesse, blockgroesse);
+				} else if (raumtyp.toLowerCase().equals("spieler"))
+				{
+					g.setColor(Color.RED);
 					g.fillRect(x, y, blockgroesse, blockgroesse);
 				}
 
 			}
 
-		public void drawMap(Graphics g)
+		public void getMapData(Graphics g)
 			{
 
 				int blockgroesse = 11;
@@ -55,11 +57,14 @@ public class ImplMap
 						int x = i * (blockgroesse + 3) + 10;
 						int y = j * (blockgroesse + 3) + 10;
 
-						if (_world.welt[i][j] == null)
+						if (_adventure._world.welt[i][j] == null)
 						{
 							drawRaum("leer", g, x, y);
 						} else
 							drawRaum("!leer", g, x, y);
+						
+						if(_adventure._world.welt[i][j].isPlayerHere())						
+							drawRaum("spieler", g, x, y);			
 
 					}
 				}
@@ -78,4 +83,5 @@ public class ImplMap
 
 				}
 			}
+
 	}

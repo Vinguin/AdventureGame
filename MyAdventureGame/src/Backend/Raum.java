@@ -6,17 +6,19 @@ public class Raum
 		private int borderX, borderY;
 		private boolean haveCurrentPlayer = false;
 		private AdventureMain _adventure;
+		private Raum raum;
 
 		public Raum(String raumtyp, AdventureMain adv)
 			{
 				_raumBezeichnung = raumtyp;
 				_adventure = adv;
+				raum = this;
 			}
 		
 		
 		public boolean isPlayerHere()
 			{
-				return  this == _adventure._spieler.getRaum();
+				return haveCurrentPlayer;
 			}
 
 
@@ -24,5 +26,12 @@ public class Raum
 			{
 				// TODO Auto-generated method stub
 				return _raumBezeichnung;
+			}
+
+
+		public void setPlayerHere(boolean b)
+			{
+				// TODO Auto-generated method stub
+				haveCurrentPlayer = b;
 			}
 	}

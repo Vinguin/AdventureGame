@@ -50,7 +50,7 @@ public class Player
 		public void setRaumByName(String raum_name)
 			{
 				Dimension worldsize = _adventure._world.getWorldSize();
-
+				boolean raumEnthalten= false;
 				int worldwidth = worldsize.width;
 				int worldheight = worldsize.height;
 
@@ -64,9 +64,15 @@ public class Player
 							String raumBez = _adventure._world.welt[i][j].getBezeichnung();
 							if (raumBez == raum_name)
 								currentRaum = _adventure._world.welt[i][j];
+							_adventure._world.welt[i][j].setPlayerHere(true);
+							
+							raumEnthalten = true;
 						}
 					}
 				}
+				
+				if(!raumEnthalten)
+					throw new IllegalArgumentException();
 			}
 
 		/**

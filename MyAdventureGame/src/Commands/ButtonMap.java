@@ -16,7 +16,7 @@ public class ButtonMap
 	public void execute()
 		{
 			// TODO Auto-generated method stub
-			_adventure.mapFrame = new MapFrame(_adventure._world);
+			_adventure.mapFrame = new MapFrame(_adventure);
 			
 			
 		}

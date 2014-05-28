@@ -13,15 +13,12 @@ public class World
 		private int weltBreite = 20, weltHöhe = 20;
 		public Raum[][] welt = new Raum[weltBreite][weltHöhe];
 		private List<Raum> räume = new ArrayList<>();
-		private int test, test1;
 		public Set<Point> freieRaeume = new HashSet<>();
 
 		public World(AdventureMain adv)
 			{
 				createWorld();
 				_adventure = adv;
-				System.out.println("Anzahl der Räume, die Abstand 1 zum Raum haben: " + getAllAvailableRooms().size());
-				System.out.println("Anzahl der Räume in der Welt: " + test);
 				freieRaeume = getAllAvailableRooms();
 
 			}
@@ -29,7 +26,7 @@ public class World
 		public void createWorld()
 			{
 				räume = getNewRoom(100);
-				welt[10][10] = new SpawnRaum("Spawnraum", _adventure);
+				welt[10][10] = new Raum("Spawnraum", _adventure);
 				Set<Point> potencialRooms = new HashSet<>();
 				potencialRooms.addAll(getAvailableRooms(10, 10));
 				List<Point> verfügbareRäume = new ArrayList<>(potencialRooms);
@@ -108,7 +105,6 @@ public class World
 
 						if (welt[i][j] instanceof Raum)
 						{
-							++test;
 
 							// Darunter
 							if (welt[i + 1][j] == null && i + 1 <= weltBreite)
@@ -148,7 +144,6 @@ public class World
 					// Links
 					if (j - 1 <= weltHöhe && welt[i][j - 1] == null)
 						temp.add(new Point(i, j - 1));
-					System.out.println(temp.size());
 					return temp;
 				} else
 					return null;
@@ -163,5 +158,10 @@ public class World
 		public Dimension getWorldSize()
 			{
 				return new Dimension(weltBreite, weltHöhe);
+			}
+		
+		public boolean isPlayerInWorld()
+			{
+				return false;
 			}
 	}

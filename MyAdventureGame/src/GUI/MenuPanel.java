@@ -1,5 +1,9 @@
 package GUI;
 
+import java.awt.BorderLayout;
+
+import javax.swing.Box;
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -14,6 +18,7 @@ public class MenuPanel extends JPanel
 			{
 				_adventure = adv;
 
+				this.setLayout(new BorderLayout());
 				JButton singlePlay = new JButton("SinglePlayer");
 				JButton multiPlay = new JButton("MultiPlayer");
 				JButton quit = new JButton("Quit");
@@ -21,9 +26,11 @@ public class MenuPanel extends JPanel
 				singlePlay.addActionListener(new iCommandListener("singleplay", adv));
 				multiPlay.addActionListener(new iCommandListener("multiplay", adv));
 				quit.addActionListener(new iCommandListener("quit",adv));
-
-				this.add(singlePlay);
-				this.add(multiPlay);
-				this.add(quit);
+				JPanel buttonPanel = new JPanel();
+				buttonPanel.add(singlePlay);
+				buttonPanel.add(multiPlay);
+				buttonPanel.add(quit);
+				buttonPanel.setVisible(true);
+				this.add(buttonPanel, BorderLayout.CENTER);
 			}
 	}
