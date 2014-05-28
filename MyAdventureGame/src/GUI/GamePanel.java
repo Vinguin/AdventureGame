@@ -35,10 +35,15 @@ public class GamePanel extends JPanel
 				JPanel buttonPanel = new JPanel();
 				buttonPanel.setLayout(new FlowLayout());
 				buttonPanel.setVisible(true);
-				JButton getMap = new JButton("Map");
 
+				//Button 
+				JButton getMap = new JButton("Map");
 				getMap.addActionListener(new iCommandListener("map", adv));
 				buttonPanel.add(getMap);
+				
+				JButton goNorth= new JButton("go-North");
+				
+				
 
 				this.add(buttonPanel, BorderLayout.NORTH);
 
@@ -56,6 +61,7 @@ public class GamePanel extends JPanel
 					{
 						super();
 						tm.start();
+						this.setSize(800, 600);
 					}
 
 				public void paintComponent(Graphics g)
@@ -67,7 +73,6 @@ public class GamePanel extends JPanel
 				@Override
 				public void actionPerformed(ActionEvent arg0)
 					{
-						// TODO Auto-generated method stub
 						++_adventure._gameTime;
 						paintComponent(this.getGraphics());
 					}

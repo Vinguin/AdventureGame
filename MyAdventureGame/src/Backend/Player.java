@@ -50,28 +50,35 @@ public class Player
 		public void setRaumByName(String raum_name)
 			{
 				Dimension worldsize = _adventure._world.getWorldSize();
-				boolean raumEnthalten= false;
+				boolean raumEnthalten = false;
 				int worldwidth = worldsize.width;
 				int worldheight = worldsize.height;
 
+				// Geh durch alle Felder der Welt
 				for (int i = 0; i < worldwidth; ++i)
 				{
 					for (int j = 0; j < worldheight; ++j)
 					{
 
+						// Wenn ein Raum gefunden wird.
 						if (_adventure._world.welt[i][j] instanceof Raum)
 						{
 							String raumBez = _adventure._world.welt[i][j].getBezeichnung();
-							if (raumBez == raum_name)
+
+							// Und der Name dem Konstruktur- Parameter des
+							// Spielers entspricht.
+							if (raumBez.equals(raum_name))
+							{
 								currentRaum = _adventure._world.welt[i][j];
-							_adventure._world.welt[i][j].setPlayerHere(true);
-							
+								_adventure._world.welt[i][j].setPlayerHere(true);
+							}
+
 							raumEnthalten = true;
 						}
 					}
 				}
-				
-				if(!raumEnthalten)
+
+				if (!raumEnthalten)
 					throw new IllegalArgumentException();
 			}
 
@@ -93,5 +100,15 @@ public class Player
 		public Raum getRaum()
 			{
 				return currentRaum;
+			}
+
+		public void putInRoom(int x, int y)
+			{
+				if (_adventure._world.istRaum(x,y))
+				{
+					currentRaum.setPlayerHere(false);
+					currentRaum = _adventure._world.welt[x][y];
+					currentRaum.setPlayerHere(true);
+				}
 			}
 	}

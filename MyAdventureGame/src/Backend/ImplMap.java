@@ -60,11 +60,14 @@ public class ImplMap
 						if (_adventure._world.welt[i][j] == null)
 						{
 							drawRaum("leer", g, x, y);
+
 						} else
+						{
 							drawRaum("!leer", g, x, y);
-						
-						if(_adventure._world.welt[i][j].isPlayerHere())						
-							drawRaum("spieler", g, x, y);			
+							
+							if (_adventure._world.welt[i][j].isPlayerHere())
+								drawRaum("spieler", g, x, y);
+						}
 
 					}
 				}

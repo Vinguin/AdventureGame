@@ -16,6 +16,7 @@ public class MainFrame extends JFrame
 				this.setSize(800, 600);
 				this.setVisible(true);
 				this.setLocationRelativeTo(null);
+				this.setResizable(false);
 
 				// Handle the window close request similarly
 				this.addWindowListener(new WindowAdapter()

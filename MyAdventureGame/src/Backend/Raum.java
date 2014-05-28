@@ -14,24 +14,19 @@ public class Raum
 				_adventure = adv;
 				raum = this;
 			}
-		
-		
+
 		public boolean isPlayerHere()
 			{
 				return haveCurrentPlayer;
 			}
 
-
 		public String getBezeichnung()
 			{
-				// TODO Auto-generated method stub
 				return _raumBezeichnung;
 			}
 
-
 		public void setPlayerHere(boolean b)
 			{
-				// TODO Auto-generated method stub
 				haveCurrentPlayer = b;
 			}
 	}

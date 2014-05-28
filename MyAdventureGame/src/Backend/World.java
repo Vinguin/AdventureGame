@@ -49,8 +49,6 @@ public class World
 					potencialRooms.remove(new Point(koordinate.x, koordinate.y));
 
 				}
-				System.out.println(verfügbareRäume.size());
-				System.out.println(potencialRooms.size());
 
 			}
 
@@ -66,9 +64,7 @@ public class World
 				// Initialisiere Arraylist mit 20 Räume.
 
 				for (int i = 0; i < anzahl; ++i)
-				{
 					temp.add(new Raum("Raum" + Integer.toString(i), _adventure));
-				}
 
 				return temp;
 
@@ -99,10 +95,7 @@ public class World
 				// alle freien Nachbarräume in das HashSet hinzu.
 
 				for (int i = 0; i < weltBreite; ++i)
-				{
 					for (int j = 0; j < weltHöhe; ++j)
-					{
-
 						if (welt[i][j] instanceof Raum)
 						{
 
@@ -119,31 +112,33 @@ public class World
 							if (welt[i][j - 1] == null && j - 1 <= weltHöhe)
 								temp.add(new Point(i, j - 1));
 						}
-					}
-				}
 
 				return temp;
 			}
 
 		public Set<Point> getAvailableRooms(int i, int j)
 			{
-
+				// Wenn die Koordinate ein Raum gehört.
 				if (welt[i][j] instanceof Raum)
 				{
 					Set<Point> temp = new HashSet<>();
 
 					// Darunter
-					if (i + 1 <= weltBreite && welt[i + 1][j] == null)
-						temp.add(new Point(i + 1, j));
+					if (i + 1 <= weltBreite && i + 1 > 0)
+						if (welt[i + 1][j] == null)
+							temp.add(new Point(i + 1, j));
 					// Darüber
-					if (i - 1 <= weltBreite && welt[i - 1][j] == null)
-						temp.add(new Point(i - 1, j));
+					if (i - 1 <= weltBreite && i - 1 > 0)
+						if (welt[i - 1][j] == null)
+							temp.add(new Point(i - 1, j));
 					// Rechts
-					if (j + 1 <= weltHöhe && welt[i][j + 1] == null)
-						temp.add(new Point(i, j + 1));
+					if (j + 1 <= weltHöhe && j + 1 > 0)
+						if (welt[i][j + 1] == null)
+							temp.add(new Point(i, j + 1));
 					// Links
-					if (j - 1 <= weltHöhe && welt[i][j - 1] == null)
-						temp.add(new Point(i, j - 1));
+					if (j - 1 <= weltHöhe && j - 1 > 0)
+						if (welt[i][j - 1] == null)
+							temp.add(new Point(i, j - 1));
 					return temp;
 				} else
 					return null;
@@ -155,13 +150,44 @@ public class World
 				weltHöhe = höhe;
 			}
 
+		/**
+		 * Gibt die Größe der Welt wieder.
+		 * 
+		 * @return
+		 */
 		public Dimension getWorldSize()
 			{
 				return new Dimension(weltBreite, weltHöhe);
 			}
-		
+
 		public boolean isPlayerInWorld()
 			{
+				for (int i = 0; i < weltBreite; ++i)
+				{
+					for (int j = 0; j < weltHöhe; ++j)
+					{
+
+						if (welt[i][j] instanceof Raum)
+						{
+
+							return welt[i][j].isPlayerHere();
+
+						}
+					}
+				}
 				return false;
+
+			}
+
+		/**
+		 * Überprüft ob eine angegebene Koordinate einem Raum gehört.
+		 * 
+		 * @param x
+		 * @param y
+		 * @return
+		 */
+		public boolean istRaum(int x, int y)
+			{
+				return welt[x][y] instanceof Raum;
 			}
 	}
