@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -13,7 +14,8 @@ public class MainFrame extends JFrame
 		public MainFrame()
 			{
 				super();
-				this.setSize(1200, 600);
+				this.setSize(800, 600);
+				this.setLayout(new BorderLayout());
 				this.setVisible(true);
 				this.setLocationRelativeTo(null);
 				this.setResizable(true);

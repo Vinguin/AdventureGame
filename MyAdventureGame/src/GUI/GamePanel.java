@@ -8,17 +8,17 @@ import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JToggleButton;
 import javax.swing.Timer;
 
 import Backend.AdventureMain;
-import Backend.World;
 import Commands.SteuerZentrale;
 import Commands.iCommandListener;
 
@@ -30,45 +30,19 @@ public class GamePanel extends JPanel
 
 		public GamePanel(AdventureMain adv)
 			{
-				super();
-				this.setLayout(new BorderLayout());
 				_adventure = adv;
-				this.setVisible(true);
+
+				// Setze Layout für das GamePanel
+				this.setLayout(new BorderLayout());
 				this.setSize(adv._frame.getWidth(), adv._frame.getHeight());
 
-				// ButtonPanel
-				JPanel buttonPanel = new JPanel();
-				buttonPanel.setLayout(new FlowLayout());
-				buttonPanel.setVisible(true);
-				this.add(buttonPanel, BorderLayout.PAGE_START);
+				// GameplayPanel, hier findet die Dynamik statt.
+				gameplayPanel = new GamePlayPanel();
+				this.add(gameplayPanel, BorderLayout.CENTER);
 
 				// InfoPanel
 				InfoPanel infoPanel = new InfoPanel();
 				this.add(infoPanel, BorderLayout.LINE_END);
-
-				// Buttons
-				JButton getMap = new JButton("Map");
-				getMap.addActionListener(new iCommandListener("map", adv));
-				buttonPanel.add(getMap);
-
-				JButton goNorth = new JButton("go-North");
-				JButton goSouth = new JButton("go-South");
-				JButton goEast = new JButton("go-East");
-				JButton goWest = new JButton("go-West");
-
-				goNorth.addActionListener(new SteuerZentrale("goNorth", adv));
-				goSouth.addActionListener(new SteuerZentrale("goSouth", adv));
-				goEast.addActionListener(new SteuerZentrale("goEast", adv));
-				goWest.addActionListener(new SteuerZentrale("goWest", adv));
-
-				buttonPanel.add(goNorth);
-				buttonPanel.add(goWest);
-				buttonPanel.add(goEast);
-				buttonPanel.add(goSouth);
-
-				// GameplayPanel, hier findet die Dynamik statt.
-				gameplayPanel = new GamePlayPanel();
-				this.add(gameplayPanel, BorderLayout.LINE_START);
 
 			}
 
@@ -78,9 +52,7 @@ public class GamePanel extends JPanel
 
 				public GamePlayPanel()
 					{
-
 						tm.start();
-						setPreferredSize(new Dimension(790, 600));
 					}
 
 				public void paintComponent(Graphics g)
@@ -101,35 +73,66 @@ public class GamePanel extends JPanel
 			{
 				public InfoPanel()
 					{
-						this.setPreferredSize(new Dimension(400, 550));
-						this.setVisible(true);
+						this.setLayout(new BorderLayout());
+						this.setPreferredSize(new Dimension(220, getHeight()));
 
-						this.setLayout(new GridBagLayout());
+						// SteuerElement
+						JPanel buttonPanel = new JPanel();
+						buttonPanel.setLayout(new GridBagLayout());
 						GridBagConstraints c = new GridBagConstraints();
 
-						// TextArea Output
+						JButton goNorth = new JButton("North");
+						JButton goSouth = new JButton("South");
+						JButton goEast = new JButton("East");
+						JButton goWest = new JButton("West");
+
+						c.gridx = 1;
+						c.gridy = 0;
+						c.insets = new Insets(10, 0, 0, 0);
+
+						buttonPanel.add(goNorth, c);
+
 						c.gridx = 0;
 						c.gridy = 1;
-						JTextArea textarea = new JTextArea("Chat");
-						textarea.setPreferredSize(new Dimension(380, 100));
+						c.insets = new Insets(0, 10 , 0, 0);
+						buttonPanel.add(goWest, c);
+
+						c.gridx = 2;
+						c.gridy = 1;
+						c.insets = new Insets(0, 0, 0, 10);
+						buttonPanel.add(goEast, c);
+
+						c.gridx = 1;
+						c.gridy = 2;
+						c.insets = new Insets(0, 0, 10, 0);
+						buttonPanel.add(goSouth, c);
+
+						JButton getMap = new JButton("Map");
+						getMap.addActionListener(new iCommandListener("map", _adventure));
+
+						c.gridx = 1;
+						c.gridy = 1;
+						c.insets = new Insets(10, 10, 10, 10);
+						buttonPanel.add(getMap, c);
+
+						goNorth.addActionListener(new SteuerZentrale("goNorth", _adventure));
+						goSouth.addActionListener(new SteuerZentrale("goSouth", _adventure));
+						goEast.addActionListener(new SteuerZentrale("goEast", _adventure));
+						goWest.addActionListener(new SteuerZentrale("goWest", _adventure));
+
+						this.add(buttonPanel, BorderLayout.PAGE_START);
+
+						// TextArea Output
+						TextArea textarea = new TextArea("Chat");
 						textarea.setEditable(false);
 						textarea.setVisible(true);
-						this.add(textarea, c);
+						this.add(textarea, BorderLayout.CENTER);
 
 						// TextField Input
-						c.gridy = 2;
-						c.insets = new Insets(10, 0, 0, 0);
-						c.ipady = 0; // reset to default
-						c.weighty = 1.0; // request any extra vertical space
-						c.anchor = GridBagConstraints.PAGE_END;
 						JTextField textInput = new JTextField();
-						textInput.setPreferredSize(new Dimension(380, 20));
 						textInput.setVisible(true);
 						textInput.setEditable(true);
-						this.add(textInput, c);
-						revalidate();
-					
-
+						this.add(textInput, BorderLayout.PAGE_END);
 					}
 
 			}
