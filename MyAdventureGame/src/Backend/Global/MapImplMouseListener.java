@@ -28,6 +28,8 @@ public class MapImplMouseListener implements MouseMotionListener
 			{
 				implMap.updateXYAnzeige(_adventure.mapFrame.koordiX, _adventure.mapFrame.koordiY,
 						_adventure.mapFrame.raumBez, new Point(e.getX(), e.getY()));
+				
+				implMap.showCursor( e.getX(), e.getY());
 
 			}
 	}

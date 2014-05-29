@@ -12,6 +12,7 @@ import Backend.Global.AdventureMain;
 public class World
 	{
 		private AdventureMain _adventure;
+		private int raumnummer;
 		private int weltBreite = 80, weltHöhe = 80;
 		public Raum[][] alpha = new Raum[weltBreite][weltHöhe];
 		public Raum[][] beta = new Raum[weltBreite][weltHöhe];
@@ -22,19 +23,21 @@ public class World
 
 		public World(AdventureMain adv)
 			{
-				createWorld(alpha, "Spawnraum", getRandomXY(20, 1000));
+				createWorld(alpha, "Spawnraum", getRandomXY(20, 500));
 
-				createWorld(alpha, "Romeo", getRandomXY(20, 500));
-				createWorld(alpha, "Romeo1", getRandomXY(20, 500));
-				createWorld(alpha, "Romeo2", getRandomXY(20, 500));
-				createWorld(alpha, "Romeo3", getRandomXY(20, 500));
-				createWorld(alpha, "Romeo4", getRandomXY(20, 500));
-				createWorld(alpha, "Romeo5", getRandomXY(20, 500));
-				createWorld(alpha, "Romeo6", getRandomXY(20, 500));
-				createWorld(alpha, "Romeo7", getRandomXY(20, 500));
+				createWorld(alpha, "Romeo", getRandomXY(20, 300));
+				createWorld(alpha, "Romeo1", getRandomXY(20, 300));
+				createWorld(alpha, "Romeo2", getRandomXY(20, 300));
+				createWorld(alpha, "Romeo3", getRandomXY(20, 300));
+				createWorld(alpha, "Romeo4", getRandomXY(20, 300));
+				createWorld(alpha, "Romeo5", getRandomXY(20, 300));
+				createWorld(alpha, "Romeo6", getRandomXY(20, 300));
+				createWorld(alpha, "Romeo7", getRandomXY(20, 300));
 
 				_adventure = adv;
 				freieRaeume = getAllAvailableRooms();
+				
+				drawKüste(freieRaeume);
 
 			}
 
@@ -46,6 +49,17 @@ public class World
 
 					}
 
+			}
+		
+		public void drawKüste(Set<Point> set)
+			{
+				List<Point>  temp = new ArrayList<>(set);
+				for(int i = 0; i < temp.size()-1; ++i)
+				{
+					Point point = temp.get(i);
+				if(getAvailableRooms(point.x, point.y, true).size()>0)
+					alpha[point.x][point.y] = new Raum("Küste"+raumnummer, _adventure);
+				}
 			}
 
 		/**
@@ -104,7 +118,7 @@ public class World
 				// Initialisiere Arraylist mit 20 Räume.
 
 				for (int i = 0; i < anzahl; ++i)
-					temp.add(new Raum("Raum" + Integer.toString(i), _adventure));
+					temp.add(new Raum("Raum" + ++raumnummer, _adventure));
 
 				return temp;
 
