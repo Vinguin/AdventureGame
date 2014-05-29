@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import Backend.Commands.iCommandListener;
 import Backend.Global.AdventureMain;
 import Backend.Global.MultiplayerImpl;
 
@@ -20,9 +21,8 @@ public class MultiplayerPanel extends JPanel
 		public MultiplayerPanel(AdventureMain adv)
 			{
 				_adventure = adv;
-				//Initialisierung in der Gottklasse
+				// Initialisierung in der Gottklasse
 				adv._mpImpl = new MultiplayerImpl(this);
-				
 
 				this.setLayout(new FlowLayout());
 
@@ -31,19 +31,17 @@ public class MultiplayerPanel extends JPanel
 				nick = new JTextField();
 				ip = new JTextField(10);
 				port = new JTextField();
-				
-				
-			
 
-				
+				//JComponent mit Backend verbinden
+				join.addActionListener(new iCommandListener("join", adv));
+				create.addActionListener(new iCommandListener("create", adv));
+
 				port.setText("9876");
 				port.setPreferredSize(new Dimension(75, 25));
 
-				
 				ip.setText(adv._mpImpl.getMyIP());
 				ip.setPreferredSize(new Dimension(0, 25));
 
-				
 				nick.setPreferredSize(new Dimension(100, 25));
 
 				// Auf das Panel klatschen

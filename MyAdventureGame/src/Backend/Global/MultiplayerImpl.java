@@ -10,19 +10,19 @@ import GUI.MultiplayerPanel;
 
 public class MultiplayerImpl
 	{
-		MultiplayerPanel multiplayerPanel;
-
-		public MultiplayerImpl(MultiplayerPanel mp)
-			{
-				multiplayerPanel = mp;
-
-			}
+		private MultiplayerPanel multiplayerPanel;
 
 		// ServerSocket, Socket, Input and Output Streams
 		private ServerSocket serverSocket = null;
 		private Socket socket = null;
 		private ObjectInputStream inputStream = null;
 		private ObjectOutputStream outputStream = null;
+
+		public MultiplayerImpl(MultiplayerPanel mp)
+			{
+				multiplayerPanel = mp;
+
+			}
 
 		/**
 		 * Gibt die IP adresse des aktuellen Benutzers heraus.

@@ -37,20 +37,16 @@ public class World
 				freieRaeume = getAllAvailableRooms();
 
 			}
-		
+
 		public void setBiome(Raum[][] kontinent)
 			{
 				for (int i = 0; i < weltHöhe; ++i)
 					for (int j = 0; j < weltBreite; ++j)
 					{
-						
+
 					}
-						
-						
-			
+
 			}
-		
-		
 
 		/**
 		 * Erschafft einen Kontinent auf Zufallsbasis.
@@ -67,7 +63,7 @@ public class World
 				kontinent[x][y] = new Raum(raum0, _adventure);
 				Set<Point> potencialRooms = new HashSet<>();
 
-				potencialRooms.addAll(getAvailableRooms(x, y));
+				potencialRooms.addAll(getAvailableRooms(x, y, true));
 				List<Point> verfügbareRäume = new ArrayList<>(potencialRooms);
 
 				for (int i = 0; i < räume.size(); ++i)
@@ -88,7 +84,7 @@ public class World
 						verfügbareRäume.remove(zufallsIndex);
 
 						// Update PotentialRooms
-						potencialRooms.addAll(getAvailableRooms(koordinate.x, koordinate.y));
+						potencialRooms.addAll(getAvailableRooms(koordinate.x, koordinate.y, true));
 						potencialRooms.remove(new Point(koordinate.x, koordinate.y));
 					}
 
@@ -164,12 +160,13 @@ public class World
 				return temp;
 			}
 
-		public Set<Point> getAvailableRooms(int i, int j)
+		public Set<Point> getAvailableRooms(int i, int j, boolean isRaum)
 			{
+				Set<Point> temp = new HashSet<>();
+
 				// Wenn die Koordinate ein Raum gehört.
-				if (alpha[i][j] instanceof Raum)
+				if (isRaum)
 				{
-					Set<Point> temp = new HashSet<>();
 
 					// Darunter
 					if (i + 1 <= weltBreite - 1 && i + 1 >= 0)
@@ -188,8 +185,28 @@ public class World
 						if (alpha[i][j - 1] == null)
 							temp.add(new Point(i, j - 1));
 					return temp;
-				} else
-					return null;
+				} else if (!isRaum)
+
+				{
+					// Darunter
+					if (i + 1 <= weltBreite - 1 && i + 1 >= 0)
+						if (alpha[i + 1][j] instanceof Raum)
+							temp.add(new Point(i + 1, j));
+					// Darüber
+					if (i - 1 <= weltBreite - 1 && i - 1 >= 0)
+						if (alpha[i - 1][j] instanceof Raum)
+							temp.add(new Point(i - 1, j));
+					// Rechts
+					if (j + 1 <= weltHöhe - 1 && j + 1 >= 0)
+						if (alpha[i][j + 1] instanceof Raum)
+							temp.add(new Point(i, j + 1));
+					// Links
+					if (j - 1 <= weltHöhe - 1 && j - 1 >= 0)
+						if (alpha[i][j - 1] instanceof Raum)
+							temp.add(new Point(i, j - 1));
+					return temp;
+				}
+				return null;
 			}
 
 		public void setWorldSize(int breite, int höhe)
