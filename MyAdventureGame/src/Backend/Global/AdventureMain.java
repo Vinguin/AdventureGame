@@ -9,6 +9,7 @@ import GUI.GamePanel;
 import GUI.MainFrame;
 import GUI.MapFrame;
 import GUI.MenuPanel;
+import GUI.MultiplayerPanel;
 import GUI.SplashScreen;
 
 public class AdventureMain
@@ -23,6 +24,7 @@ public class AdventureMain
 		public MapFrame mapFrame;
 		public Player _spieler;
 		public MultiplayerImpl _mpImpl;
+		public MultiplayerPanel _mpPanel;
 
 		public static void main(String[] args)
 			{

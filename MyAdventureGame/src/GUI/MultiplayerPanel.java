@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.TextArea;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -15,14 +16,15 @@ import Backend.Global.MultiplayerImpl;
 public class MultiplayerPanel extends JPanel
 	{
 		private AdventureMain _adventure;
-		private JTextField ip, port, nick;
-		private JButton join, create;
+		public JTextField ip, port, nick;
+		public JButton join, create;
+		private String safeSing = "!pass123!#$%&/()!";
 
 		public MultiplayerPanel(AdventureMain adv)
 			{
 				_adventure = adv;
 				// Initialisierung in der Gottklasse
-				adv._mpImpl = new MultiplayerImpl(this);
+				adv._mpImpl = new MultiplayerImpl(this, adv);
 
 				this.setLayout(new FlowLayout());
 

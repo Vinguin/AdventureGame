@@ -1,24 +1,25 @@
 package GUI;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 import java.awt.TextArea;
+import java.awt.TextField;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 import javax.swing.Timer;
 
 import Backend.Commands.SteuerZentrale;
+import Backend.Commands.TextfieldKeyListener;
 import Backend.Commands.iCommandListener;
 import Backend.Global.AdventureMain;
 
@@ -27,8 +28,9 @@ public class GamePanel extends JPanel
 	{
 		private AdventureMain _adventure;
 		public GamePlayPanel gameplayPanel;
-		
-		
+		private Image img;
+		public TextArea textArea;
+		public JTextField textInput;
 
 		public GamePanel(AdventureMain adv)
 			{
@@ -49,17 +51,18 @@ public class GamePanel extends JPanel
 				leftPanel.add(gameplayPanel, BorderLayout.CENTER);
 
 				// MultiplayerPanel
-				MultiplayerPanel mp = new MultiplayerPanel(adv);
-				leftPanel.add(mp, BorderLayout.PAGE_START);
-				
+				adv._mpPanel = new MultiplayerPanel(adv);
+				leftPanel.add(adv._mpPanel, BorderLayout.PAGE_START);
 
 				// InfoPanel
 				InfoPanel infoPanel = new InfoPanel();
 				this.add(infoPanel, BorderLayout.LINE_END);
 
+				img = Toolkit.getDefaultToolkit().getImage("res/Wallpaper/gameplayscreen.jpg");
+
 			}
 
-		//Gameplay Panel - Hier findet die Dynamik statt.
+		// Gameplay Panel - Hier findet die Dynamik statt.
 		public class GamePlayPanel extends JPanel implements ActionListener
 			{
 				public Timer tm = new Timer(100, this);
@@ -72,8 +75,7 @@ public class GamePanel extends JPanel
 
 				public void paintComponent(Graphics g)
 					{
-						g.setColor(Color.ORANGE);
-						g.fillRect(0, 0, getWidth(), getHeight());
+						g.drawImage(img, 0, 0, getWidth(), getHeight(), null);
 					}
 
 				@Override
@@ -81,6 +83,7 @@ public class GamePanel extends JPanel
 					{
 						++_adventure._gameTime;
 						paintComponent(this.getGraphics());
+						_adventure._gamePanel.repaint();
 					}
 			}
 
@@ -138,16 +141,18 @@ public class GamePanel extends JPanel
 						this.add(buttonPanel, BorderLayout.PAGE_START);
 
 						// TextArea Output
-						TextArea textarea = new TextArea("Chat");
-						textarea.setEditable(false);
-						textarea.setVisible(true);
-						this.add(textarea, BorderLayout.CENTER);
+						textArea = new TextArea("Chat");
+						textArea.setEditable(false);
+						textArea.setVisible(true);
+						this.add(textArea, BorderLayout.CENTER);
 
 						// TextField Input
-						JTextField textInput = new JTextField();
+						textInput = new JTextField();
 						textInput.setVisible(true);
+						textInput.addKeyListener(new TextfieldKeyListener(_adventure));
 						textInput.setEditable(true);
 						this.add(textInput, BorderLayout.PAGE_END);
+
 					}
 
 			}

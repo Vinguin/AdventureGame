@@ -1,6 +1,9 @@
 package GUI;
 
 import java.awt.BorderLayout;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -10,15 +13,17 @@ import javax.swing.JPanel;
 public class MainFrame extends JFrame
 	{
 		private JPanel _currentPanel;
+		private Image img;
 
 		public MainFrame()
 			{
 				super();
+
 				this.setSize(800, 600);
 				this.setLayout(new BorderLayout());
 				this.setVisible(true);
 				this.setLocationRelativeTo(null);
-				this.setResizable(true);
+				this.setResizable(false);
 
 				// Handle the window close request similarly
 				this.addWindowListener(new WindowAdapter()
@@ -28,7 +33,11 @@ public class MainFrame extends JFrame
 							System.exit(0);
 						}
 				});
+				paint(getGraphics());
 			}
+		
+		
+		
 
 		/**
 		 * Füllt das JFrame mit Content
