@@ -26,9 +26,8 @@ public class ImplMap
 				{
 					g.setColor(Color.BLACK);
 					g.drawRect(x, y, blockgroesse, blockgroesse);
-					
-					
-					g.setColor(new Color(0,178,238));
+
+					g.setColor(new Color(0, 178, 238));
 					g.fillRect(x, y, blockgroesse, blockgroesse);
 
 				} else if (raumtyp.toLowerCase().equals("!leer"))
@@ -52,28 +51,35 @@ public class ImplMap
 
 		public void getMapData(Graphics g)
 			{
+				
+				g.setColor(new Color(0, 178, 238));
+				g.fillRect(0, 0, _adventure._world.getWorldSize().height * (blockgroesse + 3) + 2,
+						_adventure._world.getWorldSize().height * (blockgroesse + 3) + 2);
 
 				for (int i = 0; i < _adventure._world.getWorldSize().height; ++i)
 				{
 					for (int j = 0; j < _adventure._world.getWorldSize().width; ++j)
 					{
-						int x = i * (blockgroesse + 3)+2;
-						int y = j * (blockgroesse + 3)+2;
+						int x = i * (blockgroesse + 3) + 2;
+						int y = j * (blockgroesse + 3) + 2;
 
-						if (_adventure._world.alpha[i][j] == null )
+						if (_adventure._world.alpha[i][j] == null)
 						{
 							drawRaum("leer", g, x, y);
 
 						} else
 						{
 							drawRaum("!leer", g, x, y);
-							
+
 							if (_adventure._world.alpha[i][j].isPlayerHere())
 								drawRaum("spieler", g, x, y);
 						}
 
 					}
 				}
+
+			
+
 			}
 
 		public void drawNextFreeRooms(Graphics g, Set<Point> set)

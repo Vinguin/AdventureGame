@@ -23,14 +23,24 @@ public class iCommandListener implements ActionListener
 
 				switch (cmd)
 					{
-					case "singleplay": new ButtonSingleplay(_adventure).execute();
+					case "join":
+						new ButtonJoin(_adventure).execute();
 						break;
-					case "multiplayer": new ButtonMultiplay(_adventure).execute();
+					case "create":
+						new ButtonCreate(_adventure).execute();
 						break;
-					case "quit": new ButtonQuit().execute();
+					case "singleplay":
+						new ButtonSingleplay(_adventure).execute();
 						break;
-					case "map": new ButtonMap(_adventure).execute();
-					break;
+					case "multiplayer":
+						new ButtonMultiplay(_adventure).execute();
+						break;
+					case "quit":
+						new ButtonQuit().execute();
+						break;
+					case "map":
+						new ButtonMap(_adventure).execute();
+						break;
 					default:
 						break;
 					}

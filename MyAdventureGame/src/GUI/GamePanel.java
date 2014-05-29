@@ -27,6 +27,8 @@ public class GamePanel extends JPanel
 	{
 		private AdventureMain _adventure;
 		public GamePlayPanel gameplayPanel;
+		
+		
 
 		public GamePanel(AdventureMain adv)
 			{
@@ -36,9 +38,20 @@ public class GamePanel extends JPanel
 				this.setLayout(new BorderLayout());
 				this.setSize(adv._frame.getWidth(), adv._frame.getHeight());
 
+				// Linker Panel. Beinhaltet das GamePanel, sowie das
+				// MultiplayerPanel
+				JPanel leftPanel = new JPanel();
+				leftPanel.setLayout(new BorderLayout());
+				this.add(leftPanel, BorderLayout.CENTER);
+
 				// GameplayPanel, hier findet die Dynamik statt.
 				gameplayPanel = new GamePlayPanel();
-				this.add(gameplayPanel, BorderLayout.CENTER);
+				leftPanel.add(gameplayPanel, BorderLayout.CENTER);
+
+				// MultiplayerPanel
+				MultiplayerPanel mp = new MultiplayerPanel(adv);
+				leftPanel.add(mp, BorderLayout.PAGE_START);
+				
 
 				// InfoPanel
 				InfoPanel infoPanel = new InfoPanel();
@@ -46,6 +59,7 @@ public class GamePanel extends JPanel
 
 			}
 
+		//Gameplay Panel - Hier findet die Dynamik statt.
 		public class GamePlayPanel extends JPanel implements ActionListener
 			{
 				public Timer tm = new Timer(100, this);
@@ -53,6 +67,7 @@ public class GamePanel extends JPanel
 				public GamePlayPanel()
 					{
 						tm.start();
+
 					}
 
 				public void paintComponent(Graphics g)
@@ -94,7 +109,7 @@ public class GamePanel extends JPanel
 
 						c.gridx = 0;
 						c.gridy = 1;
-						c.insets = new Insets(0, 10 , 0, 0);
+						c.insets = new Insets(0, 10, 0, 0);
 						buttonPanel.add(goWest, c);
 
 						c.gridx = 2;

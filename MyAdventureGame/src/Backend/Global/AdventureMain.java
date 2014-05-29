@@ -22,6 +22,7 @@ public class AdventureMain
 		public World _world;
 		public MapFrame mapFrame;
 		public Player _spieler;
+		public MultiplayerImpl _mpImpl;
 
 		public static void main(String[] args)
 			{
