@@ -7,6 +7,7 @@ import java.net.ServerSocket;
 import javax.swing.JOptionPane;
 
 import Backend.Global.AdventureMain;
+import Backend.Global.MyChatServer;
 
 public class ButtonCreate
 	{
@@ -20,32 +21,14 @@ public class ButtonCreate
 
 		public void execute()
 			{
-				// TODO Auto-generated method stub
-				if (_adventure._mpPanel.nick.getText().equals("") || _adventure._mpPanel.nick.getText().equals(" "))
+
+				try
 				{
-					try
-					{
-						JOptionPane.showMessageDialog(null, "You did not input your nickname!");
-					} catch (ExceptionInInitializerError exc)
-					{
-					}
-					return;
+					MyChatServer.main(null);
+				} catch (Exception e)
+				{
+					e.printStackTrace();
 				}
-
-				_adventure._mpImpl.createCreateObject();
-				
-//				new CreateButtonThread("CreateButton"); // we need
-														// thread
-														// while we
-														// wait for
-														// client,
-														// because
-														// we don't
-														// want
-														// frozen
-														// frame
 			}
-
-		
 
 	}

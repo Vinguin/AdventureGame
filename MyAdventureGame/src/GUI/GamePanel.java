@@ -83,7 +83,7 @@ public class GamePanel extends JPanel
 					{
 						++_adventure._gameTime;
 						paintComponent(this.getGraphics());
-						_adventure._gamePanel.repaint();
+						
 					}
 			}
 

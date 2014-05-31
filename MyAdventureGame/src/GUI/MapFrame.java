@@ -65,9 +65,9 @@ public class MapFrame extends JFrame implements ActionListener
 
 				public void paintComponent(Graphics g)
 					{
+//						implMap.drawNextFreeRooms(g, _adventure._world.freieRaeume, Color.WHITE);
 						implMap.getMapData(g);
 						implMap.updatePlayInfo(spielerkoordiX, spielerkoordiY, spielerraumBez);
-						implMap.drawNextFreeRooms(g, _adventure._world.freieRaeume, Color.WHITE);
 					}
 			}
 
@@ -96,7 +96,7 @@ public class MapFrame extends JFrame implements ActionListener
 						// Label Informationen
 						c.anchor = GridBagConstraints.LINE_START;
 						c.insets = new Insets(15, 5, 5, 5);
-						textInfos.add(new JLabel("Cursor"), c);
+						textInfos.add(new JLabel("Cursor:"), c);
 
 						c.insets = new Insets(5, 5, 5, 5);
 

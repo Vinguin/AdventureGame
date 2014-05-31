@@ -58,7 +58,7 @@ public class World
 				{
 					Point point = temp.get(i);
 				if(getAvailableRooms(point.x, point.y, true).size()>0)
-					alpha[point.x][point.y] = new Raum("Küste"+raumnummer, _adventure);
+					alpha[point.x][point.y] = new Küste("Küste"+raumnummer, _adventure);
 				}
 			}
 

@@ -1,9 +1,5 @@
 package Backend.Global;
 
-import java.util.ArrayList;
-import java.util.List;
-
-
 import Backend.World.World;
 import GUI.GamePanel;
 import GUI.MainFrame;
@@ -14,7 +10,7 @@ import GUI.SplashScreen;
 
 public class AdventureMain
 	{
-		public AdventureMain _adventure;
+		public static AdventureMain _adventure;
 		public SplashScreen _splashScreen;
 		public MenuPanel _menuPanel;
 		public MainFrame _frame;
@@ -38,8 +34,4 @@ public class AdventureMain
 				_world = new World(this);
 				_spieler = new Player("Vinh", "Spawnraum", this);
 			}
-		
-		
-		
-		
 	}

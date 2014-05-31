@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javax.swing.JTextField;
 
+import Backend.World.Küste;
 import Backend.World.Raum;
 
 public class MapImpl
@@ -21,6 +22,7 @@ public class MapImpl
 				_adventure = adv;
 			}
 
+		
 		/**
 		 * Werkzeug. Zeichnet einen Raum aus Raumtyp, getGraphics und Loc x,y.
 		 * 
@@ -108,13 +110,16 @@ public class MapImpl
 						{
 							drawRaum("leer", g, x, y);
 
-						} else
+						} else if(_adventure._world.alpha[i][j] instanceof Raum)
 						// wenn Raum
 						{
 							drawRaum("!leer", g, x, y);
 
 							if (_adventure._world.alpha[i][j].isPlayerHere())
 								drawRaum("spieler", g, x, y);
+							
+							if(_adventure._world.alpha[i][j] instanceof Küste && !_adventure._world.alpha[i][j].isPlayerHere())
+								drawRaum("border", g, x, y);
 						}
 
 					}
@@ -153,14 +158,11 @@ public class MapImpl
 			{
 				tfX.setText(Integer.toString(xy.x));
 				tfY.setText(Integer.toString(xy.y));
-
 				tfRZ.setText(getRaumBezByXY(xy.x, xy.y));
 			}
 
 		private String getRaumBezByXY(int x, int y)
 			{
-				// TODO Auto-generated method stub
-
 				// Richtig runden, sodass X und Y die Ecke oben Links eines
 				// Käastchens wiedergibt.
 

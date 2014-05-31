@@ -35,13 +35,8 @@ public class TextfieldKeyListener implements KeyListener
 			{
 				if (e.getKeyChar() == 'p')
 				{
-					_adventure._gamePanel.textArea.append(_adventure._mpPanel.nick.getText() + ":" + 	_adventure._gamePanel.textInput.getText() + "\n");
-					_adventure._mpImpl.sendMessage(_adventure._gamePanel.textInput.getText());
-					_adventure._gamePanel.textInput.setText(" ");
 
 				}
-				System.out.println("test1");
-
 
 			}
 
