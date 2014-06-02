@@ -38,29 +38,22 @@ public class MyChatServer
 		public static void main(String[] args) throws Exception
 			{
 				AdventureMain._adventure._gamePanel.textArea.setText("The chat server is running.");
-				System.out.println("angekommen");
 
 				ServerSocket listener = new ServerSocket(Integer.parseInt(AdventureMain._adventure._mpPanel.port
 						.getText()));
-				System.out.println("angekommen2");
 
-				try
-				{
-					System.out.println("angekommen3");
+//				try
+//				{
 
-					while (true)
+					if (true)
 					{
-						System.out.println("angekommen3.5");
 						new Handler(listener.accept()).run();
-						System.out.println("angekommen4");
 
 					}
-				} finally
-				{
-					listener.close();
-					System.out.println("angekommen5");
-
-				}
+//				} finally
+//				{
+//					listener.close();
+//				}
 
 			}
 
