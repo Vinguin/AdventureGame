@@ -12,6 +12,7 @@ import java.awt.TextField;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -84,6 +85,19 @@ public class GamePanel extends JPanel
 						++_adventure._gameTime;
 						paintComponent(this.getGraphics());
 						
+						
+						//Updatet  das Chat Geschehen
+						if(AdventureMain.chatclient != null)
+							
+							try
+							{
+								AdventureMain.chatclient.update();
+							} catch (IOException e)
+							{
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						
 					}
 			}
 
@@ -149,7 +163,6 @@ public class GamePanel extends JPanel
 						// TextField Input
 						textInput = new JTextField();
 						textInput.setVisible(true);
-						textInput.addKeyListener(new TextfieldKeyListener(_adventure));
 						textInput.setEditable(true);
 						this.add(textInput, BorderLayout.PAGE_END);
 

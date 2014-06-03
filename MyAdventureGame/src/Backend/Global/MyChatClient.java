@@ -1,19 +1,17 @@
 package Backend.Global;
 
+import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.Socket;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 
 /**
  * A simple Swing-based client for the chat server. Graphically it is a frame
@@ -35,6 +33,16 @@ public class MyChatClient
 		BufferedReader in;
 		PrintWriter out;
 
+		public JTextField getTextfield()
+			{
+				return AdventureMain._adventure._gamePanel.textInput;
+			}
+
+		public TextArea getTextArea()
+			{
+				return AdventureMain._adventure._gamePanel.textArea;
+			}
+
 		/**
 		 * Constructs the client by laying out the GUI and registering a
 		 * listener with the textfield so that pressing Return in the listener
@@ -42,15 +50,15 @@ public class MyChatClient
 		 * textfield is initially NOT editable, and only becomes editable AFTER
 		 * the client receives the NAMEACCEPTED message from the server.
 		 */
-		public MyChatClient()
+		public MyChatClient() 
 			{
 
 				// Layout GUI
-				AdventureMain._adventure._gamePanel.textInput.setEditable(true);
-				AdventureMain._adventure._gamePanel.textArea.setEditable(false);
+				// getTextfield().setEditable(false);
+				// getTextArea().setEditable(false);
 
 				// Add Listeners
-				AdventureMain._adventure._gamePanel.textInput.addActionListener(new ActionListener()
+				getTextfield().addActionListener(new ActionListener()
 				{
 					/**
 					 * Responds to pressing the enter key in the textfield by
@@ -60,8 +68,9 @@ public class MyChatClient
 					 */
 					public void actionPerformed(ActionEvent e)
 						{
-							out.println(AdventureMain._adventure._gamePanel.textInput.getText());
-							AdventureMain._adventure._gamePanel.textInput.setText("");
+							out.println(getTextfield().getText());
+							getTextfield().setText("");
+
 						}
 				});
 			}
@@ -72,19 +81,6 @@ public class MyChatClient
 		private String getServerAddress()
 			{
 				return AdventureMain._adventure._mpPanel.ip.getText();
-
-			}
-
-		public String getIP()
-			{
-				try
-				{
-					InetAddress thisIp = InetAddress.getLocalHost();
-					return thisIp.getHostAddress();
-				} catch (Exception e)
-				{
-					return "127.0.0.1";
-				}
 			}
 
 		/**
@@ -98,32 +94,30 @@ public class MyChatClient
 		/**
 		 * Connects to the server then enters the processing loop.
 		 */
-		public void run() throws IOException
+		private void run() throws IOException
 			{
-				
+
 				// Make connection and initialize streams
 				String serverAddress = getServerAddress();
-				Socket socket = new Socket(serverAddress, 9876);
+				Socket socket = new Socket(serverAddress, Integer.parseInt(AdventureMain._adventure._mpPanel.port
+						.getText()));
 				in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 				out = new PrintWriter(socket.getOutputStream(), true);
 
 				// Process all messages from server, according to the protocol.
-				while (true)
-				{
-					String line = in.readLine();
-					if (line.startsWith("SUBMITNAME"))
-					{
-						out.println(getName());
-					}
-					if (line.startsWith("NAMEACCEPTED"))
-					{
-						AdventureMain._adventure._gamePanel.textInput.setEditable(true);
-					}
-					if (line.startsWith("MESSAGE"))
-					{
-						AdventureMain._adventure._gamePanel.textArea.append(line.substring(8) + "\n");
-					}
-				}
+
+			}
+
+		public void update() throws IOException
+			{
+				String line = in.readLine();
+				if (line.startsWith("SUBMITNAME"))
+					out.println(getName());
+				else if (line.startsWith("NAMEACCEPTED"))
+					getTextfield().setEditable(true);
+				else if (line.startsWith("MESSAGE"))
+					getTextArea().append(line.substring(8) + "\n");
+
 			}
 
 		/**
@@ -131,7 +125,8 @@ public class MyChatClient
 		 */
 		public static void main(String[] args) throws Exception
 			{
-				MyChatClient client = new MyChatClient();
-				client.run();
+				AdventureMain.chatclient = new MyChatClient();
+				AdventureMain.chatclient.run();
 			}
+		
 	}

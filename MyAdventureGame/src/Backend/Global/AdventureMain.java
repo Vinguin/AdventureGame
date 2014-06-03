@@ -11,6 +11,7 @@ import GUI.SplashScreen;
 public class AdventureMain
 	{
 		public static AdventureMain _adventure;
+		public static MyChatClient chatclient;
 		public SplashScreen _splashScreen;
 		public MenuPanel _menuPanel;
 		public MainFrame _frame;
