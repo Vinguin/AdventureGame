@@ -86,17 +86,7 @@ public class GamePanel extends JPanel
 						paintComponent(this.getGraphics());
 						
 						
-						//Updatet  das Chat Geschehen
-						if(AdventureMain.chatclient != null)
-							
-							try
-							{
-								AdventureMain.chatclient.update();
-							} catch (IOException e)
-							{
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
+				
 						
 					}
 			}

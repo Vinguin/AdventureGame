@@ -69,7 +69,19 @@ public class MyChatClient
 					public void actionPerformed(ActionEvent e)
 						{
 							out.println(getTextfield().getText());
+						
 							getTextfield().setText("");
+							System.out.println(out.toString());
+							try
+							{
+								System.out.println(in.readLine());
+							} catch (IOException e1)
+							{
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+
+							
 
 						}
 				});
