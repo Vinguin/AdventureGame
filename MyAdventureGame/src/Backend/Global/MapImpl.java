@@ -15,7 +15,8 @@ import Backend.World.Raum;
 public class MapImpl
 	{
 		AdventureMain _adventure;
-		int blockgroesse = 7;
+		int blockgroesse = 3;
+		int blockabstand = 1;
 
 		public MapImpl(AdventureMain adv)
 			{
@@ -36,14 +37,14 @@ public class MapImpl
 				switch (raumtyp)
 					{
 					case "wasser":
-						g.setColor(Color.BLACK);
-						g.drawRect(x, y, blockgroesse, blockgroesse);
+//						g.setColor(Color.BLACK);
+//						g.drawRect(x, y, blockgroesse, blockgroesse);
 						g.setColor(new Color(0, 178, 238));
 						g.fillRect(x, y, blockgroesse, blockgroesse);
 						break;
 					case "!leer":
-						g.setColor(Color.black);
-						g.drawRect(x, y, blockgroesse, blockgroesse);
+//						g.setColor(Color.black);
+//						g.drawRect(x, y, blockgroesse, blockgroesse);
 
 						g.setColor(Color.GREEN);
 						g.fillRect(x, y, blockgroesse, blockgroesse);
@@ -58,22 +59,22 @@ public class MapImpl
 
 						break;
 					case "border":
-						g.setColor(Color.BLACK);
-						g.drawRect(x, y, blockgroesse, blockgroesse);
+//						g.setColor(Color.BLACK);
+//						g.drawRect(x, y, blockgroesse, blockgroesse);
 
 						g.setColor(Color.YELLOW);
 						g.fillRect(x, y, blockgroesse, blockgroesse);
 						break;
 					case "embedded":
-						g.setColor(Color.BLACK);
-						g.drawRect(x, y, blockgroesse, blockgroesse);
+//						g.setColor(Color.BLACK);
+//						g.drawRect(x, y, blockgroesse, blockgroesse);
 
 						g.setColor(new Color(205, 133, 63));
 						g.fillRect(x, y, blockgroesse, blockgroesse);
 						break;
 					case "cursor":
-						g.setColor(Color.BLACK);
-						g.drawRect(x, y, blockgroesse, blockgroesse);
+//						g.setColor(Color.BLACK);
+//						g.drawRect(x, y, blockgroesse, blockgroesse);
 						g.setColor(Color.WHITE);
 						g.fillRect(x, y, blockgroesse, blockgroesse);
 						break;
@@ -94,16 +95,16 @@ public class MapImpl
 			{
 				// Male alles Blau
 				g.setColor(new Color(0, 178, 238));
-				g.fillRect(0, 0, _adventure._world.getWorldSize().height * (blockgroesse + 3) + 2,
-						_adventure._world.getWorldSize().height * (blockgroesse + 3) + 2);
+				g.fillRect(0, 0, _adventure._world.getWorldSize().height * (blockgroesse + blockabstand) + 2,
+						_adventure._world.getWorldSize().height * (blockgroesse + blockabstand) + 2);
 
 				// Iteriere durch jeden Raum
 				for (int i = 0; i < _adventure._world.getWorldSize().height; ++i)
 				{
 					for (int j = 0; j < _adventure._world.getWorldSize().width; ++j)
 					{
-						int x = i * (blockgroesse + 3) + 2;
-						int y = j * (blockgroesse + 3) + 2;
+						int x = i * (blockgroesse + blockabstand) + 2;
+						int y = j * (blockgroesse + blockabstand) + 2;
 
 						// Wenn nichts
 						if (_adventure._world.alpha[i][j] == null)
@@ -140,8 +141,8 @@ public class MapImpl
 				{
 					Point koordinate = temp.get(i);
 					g.setColor(color);
-					int x = koordinate.x * (blockgroesse + 3) + 2;
-					int y = koordinate.y * (blockgroesse + 3) + 2;
+					int x = koordinate.x * (blockgroesse + blockabstand) + 2;
+					int y = koordinate.y * (blockgroesse + blockabstand) + 2;
 
 					// Wenn sich Raum an der Küste befindet.
 					if (_adventure._world.getAvailableRooms(koordinate.x, koordinate.y, true).size() > 0)
@@ -166,8 +167,8 @@ public class MapImpl
 				// Richtig runden, sodass X und Y die Ecke oben Links eines
 				// Käastchens wiedergibt.
 
-				int i = (int) ((x - 2) / (blockgroesse + 3));
-				int j = (int) ((y - 2) / (blockgroesse + 3));
+				int i = (int) ((x - 2) / (blockgroesse + blockabstand));
+				int j = (int) ((y - 2) / (blockgroesse + blockabstand));
 
 				if (_adventure._world.alpha[i][j] instanceof Raum)
 					return _adventure._world.alpha[i][j].getBezeichnung();
@@ -184,17 +185,17 @@ public class MapImpl
 		 */
 		public void updatePlayInfo(JTextField tfX, JTextField tfY, JTextField tfRZ)
 			{
-				tfX.setText(Integer.toString(_adventure._spieler.getRaumLocation().x * (blockgroesse + 3) + 2));
-				tfY.setText(Integer.toString(_adventure._spieler.getRaumLocation().y * (blockgroesse + 3) + 2));
+				tfX.setText(Integer.toString(_adventure._spieler.getRaumLocation().x * (blockgroesse + blockabstand) + 2));
+				tfY.setText(Integer.toString(_adventure._spieler.getRaumLocation().y * (blockgroesse + blockabstand) + 2));
 				tfRZ.setText(_adventure._spieler.getRaum().getBezeichnung());
 			}
 
 		public void showCursor(int x, int y)
 			{
-				int i = (int) ((x - 2) / (blockgroesse + 3));
-				int j = (int) ((y - 2) / (blockgroesse + 3));
+				int i = (int) ((x - 2) / (blockgroesse + blockabstand));
+				int j = (int) ((y - 2) / (blockgroesse + blockabstand));
 
 				if (_adventure._world.alpha[i][j] instanceof Raum)
-					drawRaum("cursor", _adventure.mapFrame.mapPanel.getGraphics(), i*(blockgroesse + 3)+2,  j*(blockgroesse + 3)+2);
+					drawRaum("cursor", _adventure.mapFrame.mapPanel.getGraphics(), i*(blockgroesse + blockabstand)+2,  j*(blockgroesse + blockabstand)+2);
 			}
 	}

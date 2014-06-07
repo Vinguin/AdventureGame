@@ -13,7 +13,7 @@ public class World
 	{
 		private AdventureMain _adventure;
 		private int raumnummer;
-		private int weltBreite = 80, weltHöhe = 80;
+		private int weltBreite = 200, weltHöhe = 200;
 		public Raum[][] alpha = new Raum[weltBreite][weltHöhe];
 		public Raum[][] beta = new Raum[weltBreite][weltHöhe];
 		public Raum[][] gamma = new Raum[weltBreite][weltHöhe];
@@ -23,21 +23,63 @@ public class World
 
 		public World(AdventureMain adv)
 			{
-				createWorld(alpha, "Spawnraum", getRandomXY(20, 500));
-
-				createWorld(alpha, "Romeo", getRandomXY(20, 300));
-				createWorld(alpha, "Romeo1", getRandomXY(20, 300));
-				createWorld(alpha, "Romeo2", getRandomXY(20, 300));
-				createWorld(alpha, "Romeo3", getRandomXY(20, 300));
-				createWorld(alpha, "Romeo4", getRandomXY(20, 300));
-				createWorld(alpha, "Romeo5", getRandomXY(20, 300));
-				createWorld(alpha, "Romeo6", getRandomXY(20, 300));
-				createWorld(alpha, "Romeo7", getRandomXY(20, 300));
-
+				createWorld(alpha);
 				_adventure = adv;
+
+
+			}
+
+		public void createWorld(Raum[][] welt)
+			{
+				createContinent(welt, "Spawnraum", getRandomXY(20, 500));
+				createContinent(welt, "Romeo", getRandomXY(200, 1000));
+				createContinent(welt, "Romeo1", getRandomXY(2000, 2500));
+				createContinent(welt, "Romeo2", getRandomXY(20, 1800));
+				createContinent(welt, "Romeo3", getRandomXY(20, 1500));
+				createContinent(welt, "Romeo4", getRandomXY(20, 2000));
+				createContinent(welt, "Romeo5", getRandomXY(20, 300));
+				createContinent(welt, "Romeo6", getRandomXY(20, 400));
+				createContinent(welt, "Romeo7", getRandomXY(5000, 9000));
 				freieRaeume = getAllAvailableRooms();
-				
+
 				drawKüste(freieRaeume);
+
+			}
+
+		public void recreateWorld(String weltbezeichnung)
+			{
+				clearWorld(weltbezeichnung);
+
+				switch (weltbezeichnung)
+					{
+					case "alpha":
+						createWorld(alpha);
+						break;
+					case "beta":
+						createWorld(beta);
+					case "gamma":
+						createWorld(gamma);
+
+					default:
+						break;
+					}
+			}
+
+		public void clearWorld(String weltbezeichnung)
+			{
+				switch (weltbezeichnung)
+					{
+					case "alpha":
+						alpha = new Raum[weltBreite][weltHöhe];
+						break;
+					case "beta":
+						beta = new Raum[weltBreite][weltHöhe];
+					case "gamma":
+						gamma = new Raum[weltBreite][weltHöhe];
+
+					default:
+						break;
+					}
 
 			}
 
@@ -50,15 +92,15 @@ public class World
 					}
 
 			}
-		
+
 		public void drawKüste(Set<Point> set)
 			{
-				List<Point>  temp = new ArrayList<>(set);
-				for(int i = 0; i < temp.size()-1; ++i)
+				List<Point> temp = new ArrayList<>(set);
+				for (int i = 0; i < temp.size() - 1; ++i)
 				{
 					Point point = temp.get(i);
-				if(getAvailableRooms(point.x, point.y, true).size()>0)
-					alpha[point.x][point.y] = new Küste("Küste"+raumnummer, _adventure);
+					if (getAvailableRooms(point.x, point.y, true).size() > 0)
+						alpha[point.x][point.y] = new Küste("Küste" + raumnummer, _adventure);
 				}
 			}
 
@@ -69,7 +111,7 @@ public class World
 		 * @param raum0
 		 * @param kontinentgoesse
 		 */
-		public void createWorld(Raum[][] kontinent, String raum0, int kontinentgoesse)
+		public void createContinent(Raum[][] kontinent, String raum0, int kontinentgoesse)
 			{
 				räume = getNewRoom(kontinentgoesse);
 				int y = getRandomXY(0, weltBreite - 1);

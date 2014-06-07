@@ -3,6 +3,7 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -12,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.nio.ByteOrder;
 
 import javax.sound.midi.MidiDevice.Info;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,6 +21,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 
+import Backend.Commands.iCommandListener;
 import Backend.Global.AdventureMain;
 import Backend.Global.MapImpl;
 import Backend.Global.MapImplMouseListener;
@@ -188,9 +191,18 @@ public class MapFrame extends JFrame implements ActionListener
 						c.gridx = 1;
 						c.anchor = GridBagConstraints.LINE_START;
 						textInfos.add(spielerraumBez, c);
+						
+						//Buttonpanel
+						JPanel worldoperations = new JPanel();
+						worldoperations.setLayout(new FlowLayout());
+						
+						JButton recreate = new JButton("Re-create");
+						recreate.addActionListener(new iCommandListener("recreate", _adventure));
+						
+						worldoperations.add(recreate);		
 
 						this.add(textInfos, BorderLayout.PAGE_START);
-
+						this.add(worldoperations, BorderLayout.PAGE_END);
 					}
 			}
 

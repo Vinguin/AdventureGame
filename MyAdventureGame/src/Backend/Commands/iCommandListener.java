@@ -41,6 +41,9 @@ public class iCommandListener implements ActionListener
 					case "map":
 						new ButtonMap(_adventure).execute();
 						break;
+					case "recreate":
+						new ButtonRecreateWorld(_adventure).execute();
+						break;
 					default:
 						break;
 					}
