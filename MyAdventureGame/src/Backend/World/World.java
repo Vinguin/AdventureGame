@@ -8,12 +8,13 @@ import java.util.List;
 import java.util.Set;
 
 import Backend.Global.AdventureMain;
+import Backend.Global.Player;
 
 public class World
 	{
 		private AdventureMain _adventure;
 		private int raumnummer;
-		private int weltBreite = 200, weltHöhe = 200;
+		private int weltBreite = 1000, weltHöhe = 1000;
 		public Raum[][] alpha = new Raum[weltBreite][weltHöhe];
 		public Raum[][] beta = new Raum[weltBreite][weltHöhe];
 		public Raum[][] gamma = new Raum[weltBreite][weltHöhe];
@@ -23,25 +24,20 @@ public class World
 
 		public World(AdventureMain adv)
 			{
-				createWorld(alpha);
 				_adventure = adv;
-
+				createWorld(alpha);
 
 			}
 
 		public void createWorld(Raum[][] welt)
 			{
-				createContinent(welt, "Spawnraum", getRandomXY(20, 500));
-				createContinent(welt, "Romeo", getRandomXY(200, 1000));
-				createContinent(welt, "Romeo1", getRandomXY(2000, 2500));
-				createContinent(welt, "Romeo2", getRandomXY(20, 1800));
-				createContinent(welt, "Romeo3", getRandomXY(20, 1500));
-				createContinent(welt, "Romeo4", getRandomXY(20, 2000));
-				createContinent(welt, "Romeo5", getRandomXY(20, 300));
-				createContinent(welt, "Romeo6", getRandomXY(20, 400));
-				createContinent(welt, "Romeo7", getRandomXY(5000, 9000));
-				freieRaeume = getAllAvailableRooms();
+				createContinent(welt, "Spawnraum", getRandomXY(20, 300));
+				
+				//Erstellt in Welt welt 200 Räume der Größe 20-3000. 
+				createXContinent(welt, 20, 3000, 200);
+				
 
+				freieRaeume = getAllAvailableRooms();
 				drawKüste(freieRaeume);
 
 			}
@@ -146,6 +142,14 @@ public class World
 
 				}
 
+			}
+
+		public void createXContinent(Raum[][] welt, int minSize, int maxSize, int anzahl)
+			{
+				for (int i = 0; i < anzahl; ++i)
+				{
+					createContinent(welt, "Romeo" + raumnummer, getRandomXY(minSize, maxSize));
+				}
 			}
 
 		/**
@@ -310,5 +314,22 @@ public class World
 		public boolean istRaum(int x, int y)
 			{
 				return alpha[x][y] instanceof Raum;
+			}
+
+		public Raum[][] getWorld(String string)
+			{
+				switch (string.toLowerCase())
+					{
+					case "aplha":
+						return alpha;
+					case "beta":
+						return beta;
+					case "gamma":
+						return gamma;
+
+					default:
+						break;
+					}
+				return null;
 			}
 	}

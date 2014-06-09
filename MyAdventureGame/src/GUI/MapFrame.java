@@ -1,7 +1,6 @@
 package GUI;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
@@ -10,14 +9,13 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.nio.ByteOrder;
 
-import javax.sound.midi.MidiDevice.Info;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.JScrollBar;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.Timer;
 
@@ -42,13 +40,18 @@ public class MapFrame extends JFrame implements ActionListener
 				_adventure = adv;
 				implMap = new MapImpl(adv);
 
-				this.setSize(810 + 175, 830);
+				this.setSize(810 + 175, 840);
 				this.setVisible(true);
 
 				this.setLayout(new BorderLayout());
-				this.add(new MapPanel(adv), BorderLayout.CENTER);
+				MapPanel mapPanel = new MapPanel(adv);
+				JScrollPane scrollPane = new JScrollPane(mapPanel);
+
+				this.add(scrollPane, BorderLayout.CENTER);
 				this.add(new InfoPanel(), BorderLayout.LINE_END);
-				this.setResizable(false);
+				this.setResizable(true);
+
+				adv._mapFrame = this;
 				tm.start();
 
 			}
@@ -56,10 +59,14 @@ public class MapFrame extends JFrame implements ActionListener
 		public class MapPanel extends JPanel
 			{
 
-
 				public MapPanel(AdventureMain adv)
 					{
-						// this.setSize(300, 300);
+						int blocksize = implMap.getBlockgroesse();
+						int blockdistance = implMap.getBlockabstand();
+
+						int widthPanel = (int) adv._world.getWorldSize().getHeight() * (blocksize + blockdistance) + 2;
+						int heightPanel = (int) adv._world.getWorldSize().getWidth() * (blocksize + blockdistance) + 2;
+						setPreferredSize(new Dimension(widthPanel, heightPanel));
 						this.setVisible(true);
 						this.addMouseMotionListener(new MapImplMouseListener(_adventure, implMap));
 						mapPanel = this;
@@ -68,9 +75,12 @@ public class MapFrame extends JFrame implements ActionListener
 
 				public void paintComponent(Graphics g)
 					{
-//						implMap.drawNextFreeRooms(g, _adventure._world.freieRaeume, Color.WHITE);
+						// implMap.drawNextFreeRooms(g,
+						// _adventure._world.freieRaeume, Color.WHITE);
 						implMap.getMapData(g);
-						implMap.updatePlayInfo(spielerkoordiX, spielerkoordiY, spielerraumBez);
+
+						if (_adventure._spieler1.isOnWorld(_adventure._world.alpha))
+							implMap.updatePlayInfo(_adventure._spieler1, spielerkoordiX, spielerkoordiY, spielerraumBez);
 					}
 			}
 
@@ -191,15 +201,15 @@ public class MapFrame extends JFrame implements ActionListener
 						c.gridx = 1;
 						c.anchor = GridBagConstraints.LINE_START;
 						textInfos.add(spielerraumBez, c);
-						
-						//Buttonpanel
+
+						// Buttonpanel
 						JPanel worldoperations = new JPanel();
 						worldoperations.setLayout(new FlowLayout());
-						
+
 						JButton recreate = new JButton("Re-create");
 						recreate.addActionListener(new iCommandListener("recreate", _adventure));
-						
-						worldoperations.add(recreate);		
+
+						worldoperations.add(recreate);
 
 						this.add(textInfos, BorderLayout.PAGE_START);
 						this.add(worldoperations, BorderLayout.PAGE_END);

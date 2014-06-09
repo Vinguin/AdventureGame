@@ -19,9 +19,10 @@ public class AdventureMain
 		public int _gameTime;
 		public World _world;
 		public MapFrame mapFrame;
-		public Player _spieler;
+		public Player _spieler1;
 		public MultiplayerImpl _mpImpl;
 		public MultiplayerPanel _mpPanel;
+		public MapFrame _mapFrame;
 
 		public static void main(String[] args)
 			{
@@ -31,8 +32,9 @@ public class AdventureMain
 		public AdventureMain()
 			{
 				_adventure = this;
-				_splashScreen = new SplashScreen(this);				
+				_splashScreen = new SplashScreen(this);
 				_world = new World(this);
-				_spieler = new Player("Vinh", "Spawnraum", this);
+				_spieler1 = new Player("Vinh", "Spawnraum", _adventure);
+
 			}
 	}

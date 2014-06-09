@@ -16,6 +16,7 @@ public class ButtonRecreateWorld
 		{
 			// TODO Auto-generated method stub
 			_adventure._world.recreateWorld("alpha");
+			_adventure._spieler1.setRaumByName(_adventure._world.alpha, "Spawnraum");
 		}
 
 	}

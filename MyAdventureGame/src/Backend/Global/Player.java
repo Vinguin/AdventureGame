@@ -12,12 +12,18 @@ public class Player
 		private Raum currentRaum;
 		private AdventureMain _adventure;
 
-		public Player(String bezeichnung, String raum, AdventureMain adv)
+		public Player(String bezeichnung, AdventureMain adv)
 			{
-				spielername = bezeichnung;			
+				spielername = bezeichnung;
 				_adventure = adv;
-				setRaumByName(raum);
 
+			}
+
+		public Player(String bezeichnung, String raumname, AdventureMain adv)
+			{
+				spielername = bezeichnung;
+				_adventure = adv;
+				setRaumByName(adv._world.getWorld("aplha"), "Spawnraum");
 			}
 
 		/**
@@ -28,16 +34,15 @@ public class Player
 		 */
 		public void setRaumLocation(int x, int y)
 			{
-				//Spieler ist nicht mehr registriert im alten Raum
-				
-				currentRaum.setPlayerHere(false);
-				
-				
-				//Packe Spieler in den neuen Raum.
+				// Spieler ist nicht mehr registriert im alten Raum
+
+				currentRaum.isPlayerHere(false);
+
+				// Packe Spieler in den neuen Raum.
 				raumX = x;
 				raumY = y;
 				currentRaum = _adventure._world.alpha[x][y];
-				currentRaum.setPlayerHere(true);
+				currentRaum.isPlayerHere(true);
 
 			}
 
@@ -56,7 +61,7 @@ public class Player
 		 * 
 		 * @param neuRaum
 		 */
-		public void setRaumByName(String raum_name)
+		public void setRaumByName(Raum[][] welt, String raum_name)
 			{
 				Dimension worldsize = _adventure._world.getWorldSize();
 				boolean raumEnthalten = false;
@@ -70,18 +75,18 @@ public class Player
 					{
 
 						// Wenn ein Raum gefunden wird.
-						if (_adventure._world.alpha[i][j] instanceof Raum)
+						if (welt[i][j] instanceof Raum)
 						{
-							String raumBez = _adventure._world.alpha[i][j].getBezeichnung();
+							String raumBez = welt[i][j].getBezeichnung();
 
 							// Und der Name dem Konstruktur- Parameter des
 							// Spielers entspricht.
 							if (raumBez.equals(raum_name))
 							{
-								currentRaum = _adventure._world.alpha[i][j];
-								_adventure._world.alpha[i][j].setPlayerHere(true);
+								currentRaum = welt[i][j];
+								welt[i][j].isPlayerHere(true);
 								setRaumLocation(i, j);
-								
+
 							}
 
 							raumEnthalten = true;
@@ -115,11 +120,22 @@ public class Player
 
 		public void putInRoom(int x, int y)
 			{
-				if (_adventure._world.istRaum(x,y))
+				if (_adventure._world.istRaum(x, y))
 				{
-					currentRaum.setPlayerHere(false);
+					currentRaum.isPlayerHere(false);
 					currentRaum = _adventure._world.alpha[x][y];
-					currentRaum.setPlayerHere(true);
+					currentRaum.isPlayerHere(true);
 				}
+			}
+
+		public boolean isOnWorld(Raum[][] welt)
+			{
+				for (int i = 0; i < _adventure._world.getWorldSize().getHeight(); ++i)
+					for (int j = 0; j < _adventure._world.getWorldSize().getWidth(); ++j)
+						if (welt[i][j] instanceof Raum)
+							if (welt[i][j].isPlayerHere())
+								return true;
+
+				return false;
 			}
 	}

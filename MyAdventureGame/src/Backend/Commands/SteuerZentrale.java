@@ -57,13 +57,13 @@ public class SteuerZentrale implements ActionListener
 				@Override
 				public void go()
 					{
-						Point playerKoordinaten = _adventure._spieler.getRaumLocation();
+						Point playerKoordinaten = _adventure._spieler1.getRaumLocation();
 						int x = playerKoordinaten.x;
 						int y = playerKoordinaten.y;
-						Raum currentRoom = _adventure._spieler.getRaum();
+						Raum currentRoom = _adventure._spieler1.getRaum();
 
 						if (_adventure._world.istRaum(x - 1, y))
-							_adventure._spieler.setRaumLocation(x - 1, y);
+							_adventure._spieler1.setRaumLocation(x - 1, y);
 
 					}
 
@@ -81,13 +81,13 @@ public class SteuerZentrale implements ActionListener
 				@Override
 				public void go()
 					{
-						Point playerKoordinaten = _adventure._spieler.getRaumLocation();
+						Point playerKoordinaten = _adventure._spieler1.getRaumLocation();
 						int x = playerKoordinaten.x;
 						int y = playerKoordinaten.y;
-						Raum currentRoom = _adventure._spieler.getRaum();
+						Raum currentRoom = _adventure._spieler1.getRaum();
 
 						if (_adventure._world.istRaum(x, y + 1))
-							_adventure._spieler.setRaumLocation(x, y + 1);
+							_adventure._spieler1.setRaumLocation(x, y + 1);
 
 					}
 
@@ -104,13 +104,13 @@ public class SteuerZentrale implements ActionListener
 				@Override
 				public void go()
 					{
-						Point playerKoordinaten = _adventure._spieler.getRaumLocation();
+						Point playerKoordinaten = _adventure._spieler1.getRaumLocation();
 						int x = playerKoordinaten.x;
 						int y = playerKoordinaten.y;
-						Raum currentRoom = _adventure._spieler.getRaum();
+						Raum currentRoom = _adventure._spieler1.getRaum();
 
 						if (_adventure._world.istRaum(x, y - 1))
-							_adventure._spieler.setRaumLocation(x, y - 1);
+							_adventure._spieler1.setRaumLocation(x, y - 1);
 
 					}
 
@@ -127,13 +127,13 @@ public class SteuerZentrale implements ActionListener
 				@Override
 				public void go()
 					{
-						Point playerKoordinaten = _adventure._spieler.getRaumLocation();
+						Point playerKoordinaten = _adventure._spieler1.getRaumLocation();
 						int x = playerKoordinaten.x;
 						int y = playerKoordinaten.y;
-						Raum currentRoom = _adventure._spieler.getRaum();
+						Raum currentRoom = _adventure._spieler1.getRaum();
 
 						if (_adventure._world.istRaum(x + 1, y))
-							_adventure._spieler.setRaumLocation(x + 1, y);
+							_adventure._spieler1.setRaumLocation(x + 1, y);
 
 					}
 

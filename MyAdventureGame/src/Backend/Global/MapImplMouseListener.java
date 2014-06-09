@@ -26,10 +26,11 @@ public class MapImplMouseListener implements MouseMotionListener
 		@Override
 		public void mouseMoved(MouseEvent e)
 			{
+
 				implMap.updateXYAnzeige(_adventure.mapFrame.koordiX, _adventure.mapFrame.koordiY,
 						_adventure.mapFrame.raumBez, new Point(e.getX(), e.getY()));
-				
-				implMap.showCursor( e.getX(), e.getY());
+				// Cursor Labels mit Coordinaten füllen
+				implMap.showCursor(e.getX(), e.getY());
 
 			}
 	}

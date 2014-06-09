@@ -27,7 +27,7 @@ public class Raum
 				return _raumBezeichnung;
 			}
 
-		public void setPlayerHere(boolean b)
+		public void isPlayerHere(boolean b)
 			{
 				haveCurrentPlayer = b;
 			}
