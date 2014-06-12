@@ -27,10 +27,10 @@ import Backend.Global.MapImplMouseListener;
 @SuppressWarnings("serial")
 public class MapFrame extends JFrame implements ActionListener
 	{
-		private MapImpl implMap;
+		public MapImpl implMap;
 		public MapPanel mapPanel;
 
-		private Timer tm = new Timer(100, this);
+		private Timer tm = new Timer(10000, this);
 		private AdventureMain _adventure;
 		public JTextField koordiX, koordiY, raumBez;
 		public JTextField spielerkoordiX, spielerkoordiY, spielerraumBez;
@@ -44,7 +44,7 @@ public class MapFrame extends JFrame implements ActionListener
 				this.setVisible(true);
 
 				this.setLayout(new BorderLayout());
-				MapPanel mapPanel = new MapPanel(adv);
+				adv._mapPanel = new MapPanel(adv);
 				JScrollPane scrollPane = new JScrollPane(mapPanel);
 
 				this.add(scrollPane, BorderLayout.CENTER);
@@ -81,6 +81,7 @@ public class MapFrame extends JFrame implements ActionListener
 
 						if (_adventure._spieler1.isOnWorld(_adventure._world.alpha))
 							implMap.updatePlayInfo(_adventure._spieler1, spielerkoordiX, spielerkoordiY, spielerraumBez);
+
 					}
 			}
 
@@ -219,7 +220,6 @@ public class MapFrame extends JFrame implements ActionListener
 		@Override
 		public void actionPerformed(ActionEvent arg0)
 			{
-				// TODO Auto-generated method stub
 				repaint();
 			}
 

@@ -48,7 +48,7 @@ public class GamePanel extends JPanel
 				this.add(leftPanel, BorderLayout.CENTER);
 
 				// GameplayPanel, hier findet die Dynamik statt.
-				gameplayPanel = new GamePlayPanel();
+				gameplayPanel = new GamePlayPanel(adv);
 				leftPanel.add(gameplayPanel, BorderLayout.CENTER);
 
 				// MultiplayerPanel
@@ -63,33 +63,7 @@ public class GamePanel extends JPanel
 
 			}
 
-		// Gameplay Panel - Hier findet die Dynamik statt.
-		public class GamePlayPanel extends JPanel implements ActionListener
-			{
-				public Timer tm = new Timer(100, this);
-
-				public GamePlayPanel()
-					{
-						tm.start();
-
-					}
-
-				public void paintComponent(Graphics g)
-					{
-						g.drawImage(img, 0, 0, getWidth(), getHeight(), null);
-					}
-
-				@Override
-				public void actionPerformed(ActionEvent arg0)
-					{
-						++_adventure._gameTime;
-						paintComponent(this.getGraphics());
-						
-						
-				
-						
-					}
-			}
+		
 
 		public class InfoPanel extends JPanel
 			{

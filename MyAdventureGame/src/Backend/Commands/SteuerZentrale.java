@@ -26,17 +26,26 @@ public class SteuerZentrale implements ActionListener
 
 				switch (cmd)
 					{
+				
 					case "goNorth":
 						new GoNorth(cmd, _adventure).go();
+						_adventure._mapFrame.implMap.updateMap();
+						
 						break;
 					case "goSouth":
 						new GoSouth(cmd, _adventure).go();
+						_adventure._mapFrame.implMap.updateMap();
+
 						break;
 					case "goEast":
 						new GoEast(cmd, _adventure).go();
+						_adventure._mapFrame.implMap.updateMap();
+
 						break;
 					case "goWest":
 						new GoWest(cmd, _adventure).go();
+						_adventure._mapFrame.implMap.updateMap();
+
 						break;
 
 					default:

@@ -20,7 +20,7 @@ public class MainFrame extends JFrame
 			{
 				super();
 
-				this.setSize(800, 600);
+				this.setSize(800, 640);
 				this.setLayout(new BorderLayout());
 				this.setVisible(true);
 				this.setLocationRelativeTo(null);

@@ -210,4 +210,9 @@ public class MapImpl
 					drawRaum("cursor", _adventure.mapFrame.mapPanel.getGraphics(), i * (blockgroesse + blockabstand)
 							+ 2, j * (blockgroesse + blockabstand) + 2);
 			}
+
+		public void updateMap()
+			{
+				_adventure._mapFrame.repaint();
+			}
 	}

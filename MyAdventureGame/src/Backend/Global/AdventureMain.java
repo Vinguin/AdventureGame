@@ -4,6 +4,7 @@ import Backend.World.World;
 import GUI.GamePanel;
 import GUI.MainFrame;
 import GUI.MapFrame;
+import GUI.MapFrame.MapPanel;
 import GUI.MenuPanel;
 import GUI.MultiplayerPanel;
 import GUI.SplashScreen;
@@ -23,6 +24,7 @@ public class AdventureMain
 		public MultiplayerImpl _mpImpl;
 		public MultiplayerPanel _mpPanel;
 		public MapFrame _mapFrame;
+		public MapPanel _mapPanel;
 
 		public static void main(String[] args)
 			{
