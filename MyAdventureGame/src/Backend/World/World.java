@@ -19,7 +19,7 @@ public class World
 		public Raum[][] beta = new Raum[weltBreite][weltHöhe];
 		public Raum[][] gamma = new Raum[weltBreite][weltHöhe];
 
-		private List<Raum> räume = new ArrayList<>();
+		private List<Wiese> räume = new ArrayList<>();
 		public Set<Point> freieRaeume = new HashSet<>();
 
 		public World(AdventureMain adv)
@@ -32,13 +32,11 @@ public class World
 		public void createWorld(Raum[][] welt)
 			{
 				createContinent(welt, "Spawnraum", getRandomXY(20, 300));
-				
-				//Erstellt in Welt welt 200 Räume der Größe 20-3000. 
-				createXContinent(welt, 20, 3000, 200);
-				
 
-				freieRaeume = getAllAvailableRooms();
-				drawKüste(freieRaeume);
+				// Erstellt in Welt welt 200 Räume der Größe 20-3000.
+				createXContinent(welt, 20, 3000, 200);
+
+				drawKüste(welt);
 
 			}
 
@@ -66,12 +64,12 @@ public class World
 				switch (weltbezeichnung)
 					{
 					case "alpha":
-						alpha = new Raum[weltBreite][weltHöhe];
+						alpha = new Wiese[weltBreite][weltHöhe];
 						break;
 					case "beta":
-						beta = new Raum[weltBreite][weltHöhe];
+						beta = new Wiese[weltBreite][weltHöhe];
 					case "gamma":
-						gamma = new Raum[weltBreite][weltHöhe];
+						gamma = new Wiese[weltBreite][weltHöhe];
 
 					default:
 						break;
@@ -89,17 +87,6 @@ public class World
 
 			}
 
-		public void drawKüste(Set<Point> set)
-			{
-				List<Point> temp = new ArrayList<>(set);
-				for (int i = 0; i < temp.size() - 1; ++i)
-				{
-					Point point = temp.get(i);
-					if (getAvailableRooms(point.x, point.y, true).size() > 0)
-						alpha[point.x][point.y] = new Küste("Küste" + raumnummer, _adventure);
-				}
-			}
-
 		/**
 		 * Erschafft einen Kontinent auf Zufallsbasis.
 		 * 
@@ -112,7 +99,7 @@ public class World
 				räume = getNewRoom(kontinentgoesse);
 				int y = getRandomXY(0, weltBreite - 1);
 				int x = getRandomXY(0, weltHöhe - 1);
-				kontinent[x][y] = new Raum(raum0, _adventure);
+				kontinent[x][y] = new Wiese(raum0, _adventure);
 				Set<Point> potencialRooms = new HashSet<>();
 
 				potencialRooms.addAll(getAvailableRooms(x, y, true));
@@ -120,7 +107,7 @@ public class World
 
 				for (int i = 0; i < räume.size(); ++i)
 				{
-					Raum raum = räume.get(i);
+					Wiese raum = räume.get(i);
 					verfügbareRäume = new ArrayList<>(potencialRooms);
 					if (verfügbareRäume.size() == 0)
 					{
@@ -141,6 +128,7 @@ public class World
 					}
 
 				}
+				
 
 			}
 
@@ -150,6 +138,14 @@ public class World
 				{
 					createContinent(welt, "Romeo" + raumnummer, getRandomXY(minSize, maxSize));
 				}
+				
+				
+				//Füllt den Rest mit "Meer"
+				for (int i = 0; i < weltBreite - 1; ++i)
+					for (int j = 0; j < weltHöhe - 1; ++j)
+
+						if (welt[i][j] == null)
+							welt[i][j] = new Meer("Meer" + raumnummer, _adventure);
 			}
 
 		/**
@@ -158,13 +154,13 @@ public class World
 		 * @param anzahl
 		 * @return
 		 */
-		public List<Raum> getNewRoom(int anzahl)
+		public List<Wiese> getNewRoom(int anzahl)
 			{
-				List<Raum> temp = new ArrayList<Raum>();
+				List<Wiese> temp = new ArrayList<Wiese>();
 				// Initialisiere Arraylist mit 20 Räume.
 
 				for (int i = 0; i < anzahl; ++i)
-					temp.add(new Raum("Raum" + ++raumnummer, _adventure));
+					temp.add(new Wiese("Wiese" + ++raumnummer, _adventure));
 
 				return temp;
 
@@ -182,42 +178,32 @@ public class World
 				return (int) (Math.random() * (b + 1 - a) + a);
 			}
 
-		/**
-		 * Gibt alle Räume aus, dessen Distanz zu einem Raum 1 betragen.
-		 * 
-		 * @return
-		 */
-		public Set<Point> getAllAvailableRooms()
+		public void drawKüste(Raum[][] welt)
 			{
-				Set<Point> temp = new HashSet<>();
 
-				// Läuft die das WeltArray ab und findet es einen Raum, fügt er
-				// alle freien Nachbarräume in das HashSet hinzu.
+				for (int i = 0; i < weltBreite - 1; ++i)
+					for (int j = 0; j < weltHöhe - 1; ++j)
 
-				for (int i = 0; i < weltBreite; ++i)
-					for (int j = 0; j < weltHöhe; ++j)
-						if (alpha[i][j] instanceof Raum)
+						if (welt[i][j] instanceof Wiese)
 						{
+							if (isPotencialKüste(i, j))
+							{
+								welt[i][j] = new Küste("Küste" + raumnummer, _adventure);
+							}
+						} else
+							welt[i][j] = new Meer("Meer" + raumnummer, _adventure);
 
-							// Darunter
-							if (i + 1 <= weltBreite - 1 && i + 1 >= 0)
-								if (alpha[i + 1][j] == null)
-									temp.add(new Point(i + 1, j));
-							// Darüber
-							if (i - 1 <= weltBreite - 1 && i - 1 >= 0)
-								if (alpha[i - 1][j] == null)
-									temp.add(new Point(i - 1, j));
-							// Rechts
-							if (j + 1 <= weltHöhe - 1 && j + 1 >= 0)
-								if (alpha[i][j + 1] == null)
-									temp.add(new Point(i, j + 1));
-							// Links
-							if (j - 1 <= weltHöhe - 1 && j - 1 >= 0)
-								if (alpha[i][j - 1] == null)
-									temp.add(new Point(i, j - 1));
-						}
+			}
 
-				return temp;
+		public boolean isPotencialKüste(int i, int j)
+			{
+				List<Point> temp1 = new ArrayList<>(getNextRooms(i, j));
+
+				for (int h = 0; h < temp1.size() - 1; ++h)
+					if (alpha[temp1.get(h).x][temp1.get(h).y] instanceof Meer)
+						return true;
+
+				return false;
 			}
 
 		public Set<Point> getAvailableRooms(int i, int j, boolean isRaum)
@@ -250,19 +236,19 @@ public class World
 				{
 					// Darunter
 					if (i + 1 <= weltBreite - 1 && i + 1 >= 0)
-						if (alpha[i + 1][j] instanceof Raum)
+						if (alpha[i + 1][j] instanceof Wiese)
 							temp.add(new Point(i + 1, j));
 					// Darüber
 					if (i - 1 <= weltBreite - 1 && i - 1 >= 0)
-						if (alpha[i - 1][j] instanceof Raum)
+						if (alpha[i - 1][j] instanceof Wiese)
 							temp.add(new Point(i - 1, j));
 					// Rechts
 					if (j + 1 <= weltHöhe - 1 && j + 1 >= 0)
-						if (alpha[i][j + 1] instanceof Raum)
+						if (alpha[i][j + 1] instanceof Wiese)
 							temp.add(new Point(i, j + 1));
 					// Links
 					if (j - 1 <= weltHöhe - 1 && j - 1 >= 0)
-						if (alpha[i][j - 1] instanceof Raum)
+						if (alpha[i][j - 1] instanceof Wiese)
 							temp.add(new Point(i, j - 1));
 					return temp;
 				}
@@ -292,7 +278,7 @@ public class World
 					for (int j = 0; j < weltHöhe; ++j)
 					{
 
-						if (alpha[i][j] instanceof Raum)
+						if (alpha[i][j] instanceof Wiese)
 						{
 
 							return alpha[i][j].isPlayerHere();
@@ -313,7 +299,7 @@ public class World
 		 */
 		public boolean istRaum(int x, int y)
 			{
-				return alpha[x][y] instanceof Raum;
+				return alpha[x][y] instanceof Wiese;
 			}
 
 		public Raum[][] getWorld(String string)
@@ -331,5 +317,24 @@ public class World
 						break;
 					}
 				return null;
+			}
+
+		public Set<Point> getNextRooms(int i, int j)
+			{
+				Set<Point> temp = new HashSet<>();
+				if (i + 1 <= weltBreite - 1 && i + 1 >= 0)
+					temp.add(new Point(i + 1, j));
+
+				if (i - 1 <= weltBreite - 1 && i - 1 >= 0)
+					temp.add(new Point(i - 1, j));
+
+				if (j + 1 <= weltBreite - 1 && j + 1 >= 0)
+					temp.add(new Point(i + 1, j + 1));
+
+				if (j - 1 <= weltBreite - 1 && j - 1 >= 0)
+					temp.add(new Point(i + 1, j - 1));
+
+				return temp;
+
 			}
 	}

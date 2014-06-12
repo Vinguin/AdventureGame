@@ -8,13 +8,11 @@ public class Raum
 		private int borderX, borderY;
 		private boolean haveCurrentPlayer = false;
 		private AdventureMain _adventure;
-		private Raum raum;
 
 		public Raum(String raumtyp, AdventureMain adv)
 			{
 				_raumBezeichnung = raumtyp;
 				_adventure = adv;
-				raum = this;
 			}
 
 		public boolean isPlayerHere()
@@ -33,7 +31,7 @@ public class Raum
 			}
 
 		
-		public boolean isRoomInDirection(String direction, int currentX, int currentY)
+		public boolean getRoomInDirection(String direction, int currentX, int currentY)
 			{
 				switch (direction.toLowerCase())
 					{

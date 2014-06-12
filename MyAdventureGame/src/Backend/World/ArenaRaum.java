@@ -2,7 +2,7 @@ package Backend.World;
 
 import Backend.Global.AdventureMain;
 
-public class ArenaRaum extends Raum
+public class ArenaRaum extends Wiese
 	{
 
 	public ArenaRaum(String raumtyp, AdventureMain adv)

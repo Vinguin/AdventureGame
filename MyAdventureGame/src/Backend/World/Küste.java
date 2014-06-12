@@ -2,7 +2,7 @@ package Backend.World;
 
 import Backend.Global.AdventureMain;
 
-public class Küste extends Raum
+public class Küste extends Wiese
 	{
 
 	public Küste(String raumtyp, AdventureMain adv)

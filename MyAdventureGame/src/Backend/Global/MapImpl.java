@@ -10,7 +10,7 @@ import java.util.Set;
 import javax.swing.JTextField;
 
 import Backend.World.Küste;
-import Backend.World.Raum;
+import Backend.World.Wiese;
 
 public class MapImpl
 	{
@@ -119,7 +119,7 @@ public class MapImpl
 						{
 							drawRaum("leer", g, x, y);
 
-						} else if (_adventure._world.alpha[i][j] instanceof Raum)
+						} else if (_adventure._world.alpha[i][j] instanceof Wiese)
 						// wenn Raum
 						{
 							drawRaum("!leer", g, x, y);
@@ -181,7 +181,7 @@ public class MapImpl
 				int i = (int) ((x - 2) / (blockgroesse + blockabstand));
 				int j = (int) ((y - 2) / (blockgroesse + blockabstand));
 
-				if (_adventure._world.alpha[i][j] instanceof Raum)
+				if (_adventure._world.alpha[i][j] instanceof Wiese)
 					return _adventure._world.alpha[i][j].getBezeichnung();
 				else
 					return "Leer";
@@ -206,7 +206,7 @@ public class MapImpl
 				int i = (int) ((x - 2) / (blockgroesse + blockabstand));
 				int j = (int) ((y - 2) / (blockgroesse + blockabstand));
 
-				if (_adventure._world.alpha[i][j] instanceof Raum)
+				if (_adventure._world.alpha[i][j] instanceof Wiese)
 					drawRaum("cursor", _adventure.mapFrame.mapPanel.getGraphics(), i * (blockgroesse + blockabstand)
 							+ 2, j * (blockgroesse + blockabstand) + 2);
 			}

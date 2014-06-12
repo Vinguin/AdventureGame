@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 
 import Backend.Global.AdventureMain;
 import Backend.World.Raum;
+import Backend.World.Wiese;
 
 public class SteuerZentrale implements ActionListener
 	{

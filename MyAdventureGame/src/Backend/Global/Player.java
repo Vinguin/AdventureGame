@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 
 import Backend.World.Raum;
+import Backend.World.Wiese;
 
 public class Player
 	{
@@ -75,7 +76,7 @@ public class Player
 					{
 
 						// Wenn ein Raum gefunden wird.
-						if (welt[i][j] instanceof Raum)
+						if (welt[i][j] instanceof Wiese)
 						{
 							String raumBez = welt[i][j].getBezeichnung();
 
@@ -132,7 +133,7 @@ public class Player
 			{
 				for (int i = 0; i < _adventure._world.getWorldSize().getHeight(); ++i)
 					for (int j = 0; j < _adventure._world.getWorldSize().getWidth(); ++j)
-						if (welt[i][j] instanceof Raum)
+						if (welt[i][j] instanceof Wiese)
 							if (welt[i][j].isPlayerHere())
 								return true;
 
