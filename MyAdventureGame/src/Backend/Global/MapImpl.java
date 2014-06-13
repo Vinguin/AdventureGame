@@ -41,30 +41,30 @@ public class MapImpl
 		 * @param x
 		 * @param y
 		 */
-		public void drawRaum(String raumtyp, Graphics g, int x, int y)
+		public void drawRaum(String raumtyp, Graphics g, int x, int y, int blocksize, int blockdistance)
 			{
-				switch (raumtyp)
+				switch (raumtyp.toLowerCase())
 					{
 					case "wasser":
 						// g.setColor(Color.BLACK);
 						// g.drawRect(x, y, blockgroesse, blockgroesse);
 						g.setColor(new Color(0, 178, 238));
-						g.fillRect(x, y, blockgroesse, blockgroesse);
+						g.fillRect(x, y, blocksize, blocksize);
 						break;
-					case "!leer":
+					case "wiese":
 						// g.setColor(Color.black);
 						// g.drawRect(x, y, blockgroesse, blockgroesse);
 
 						g.setColor(Color.GREEN);
-						g.fillRect(x, y, blockgroesse, blockgroesse);
+						g.fillRect(x, y, blocksize, blocksize);
 						break;
 					case "frei":
 						g.setColor(Color.GREEN);
-						g.fillRect(x, y, blockgroesse, blockgroesse);
+						g.fillRect(x, y, blocksize, blocksize);
 						break;
 					case "spieler":
 						g.setColor(Color.RED);
-						g.fillRect(x, y, blockgroesse, blockgroesse);
+						g.fillRect(x, y, blocksize, blocksize);
 
 						break;
 					case "border":
@@ -72,20 +72,20 @@ public class MapImpl
 						// g.drawRect(x, y, blockgroesse, blockgroesse);
 
 						g.setColor(Color.YELLOW);
-						g.fillRect(x, y, blockgroesse, blockgroesse);
+						g.fillRect(x, y, blocksize, blocksize);
 						break;
 					case "embedded":
 						// g.setColor(Color.BLACK);
 						// g.drawRect(x, y, blockgroesse, blockgroesse);
 
 						g.setColor(new Color(205, 133, 63));
-						g.fillRect(x, y, blockgroesse, blockgroesse);
+						g.fillRect(x, y, blocksize, blocksize);
 						break;
 					case "cursor":
 						// g.setColor(Color.BLACK);
 						// g.drawRect(x, y, blockgroesse, blockgroesse);
 						g.setColor(Color.WHITE);
-						g.fillRect(x, y, blockgroesse, blockgroesse);
+						g.fillRect(x, y, blocksize, blocksize);
 						break;
 
 					default:
@@ -117,21 +117,21 @@ public class MapImpl
 						// Wenn nichts
 						if (_adventure._world.alpha[i][j] == null)
 						{
-							drawRaum("leer", g, x, y);
+							drawRaum("leer", g, x, y, blockgroesse, blockabstand);
 
 						} else if (_adventure._world.alpha[i][j] instanceof Wiese)
 						// wenn Raum
 						{
-							drawRaum("!leer", g, x, y);
+							drawRaum("wiese", g, x, y, blockgroesse, blockabstand);
 
 							if (_adventure._world.alpha[i][j].isPlayerHere())
 							{
-								drawRaum("spieler", g, x, y);
+								drawRaum("spieler", g, x, y, blockgroesse, blockabstand);
 							}
 
 							if (_adventure._world.alpha[i][j] instanceof Küste
 									&& !_adventure._world.alpha[i][j].isPlayerHere())
-								drawRaum("border", g, x, y);
+								drawRaum("border", g, x, y, blockgroesse, blockabstand);
 						}
 
 					}
@@ -157,11 +157,11 @@ public class MapImpl
 
 					// Wenn sich Raum an der Küste befindet.
 					if (_adventure._world.getAvailableRooms(koordinate.x, koordinate.y, true).size() > 0)
-						drawRaum("border", g, x, y);
+						drawRaum("border", g, x, y, blockgroesse, blockabstand);
 
 					// Wenn Raum eingeschlossen. Dann mal nichts.
 					if (_adventure._world.getAvailableRooms(koordinate.x, koordinate.y, false).size() == 4)
-						drawRaum("leer", g, x, y);
+						drawRaum("leer", g, x, y, blockgroesse, blockabstand);
 
 				}
 			}
@@ -208,7 +208,7 @@ public class MapImpl
 
 				if (_adventure._world.alpha[i][j] instanceof Wiese)
 					drawRaum("cursor", _adventure.mapFrame.mapPanel.getGraphics(), i * (blockgroesse + blockabstand)
-							+ 2, j * (blockgroesse + blockabstand) + 2);
+							+ 2, j * (blockgroesse + blockabstand) + 2, blockgroesse, blockabstand);
 			}
 
 		public void updateMap()

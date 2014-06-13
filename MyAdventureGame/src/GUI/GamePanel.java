@@ -2,25 +2,19 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.TextArea;
-import java.awt.TextField;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.Timer;
 
+import Backend.Commands.KeyboardListener;
 import Backend.Commands.SteuerZentrale;
-import Backend.Commands.TextfieldKeyListener;
 import Backend.Commands.iCommandListener;
 import Backend.Global.AdventureMain;
 
@@ -60,6 +54,9 @@ public class GamePanel extends JPanel
 				this.add(infoPanel, BorderLayout.LINE_END);
 
 				img = Toolkit.getDefaultToolkit().getImage("res/Wallpaper/gameplayscreen.jpg");
+				
+				this.addKeyListener(new KeyboardListener());
+
 
 			}
 

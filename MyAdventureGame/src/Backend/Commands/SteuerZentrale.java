@@ -23,35 +23,42 @@ public class SteuerZentrale implements ActionListener
 		@Override
 		public void actionPerformed(ActionEvent arg0)
 			{
-				// TODO Auto-generated method stub
 
 				switch (cmd)
 					{
-				
+
 					case "goNorth":
 						new GoNorth(cmd, _adventure).go();
-						_adventure._mapFrame.implMap.updateMap();
-						
+						update();
 						break;
 					case "goSouth":
 						new GoSouth(cmd, _adventure).go();
-						_adventure._mapFrame.implMap.updateMap();
-
+						update();
 						break;
 					case "goEast":
 						new GoEast(cmd, _adventure).go();
-						_adventure._mapFrame.implMap.updateMap();
-
+						update();
 						break;
 					case "goWest":
 						new GoWest(cmd, _adventure).go();
-						_adventure._mapFrame.implMap.updateMap();
-
+						update();
 						break;
 
 					default:
 						break;
 					}
+
+			}
+
+		public void update()
+			{
+				if (_adventure._mapFrame == null)
+					_adventure._gamePanel.gameplayPanel._gPaneImpl.updateGUI();
+				else
+				{
+					_adventure._mapFrame.implMap.updateMap();
+					_adventure._gamePanel.gameplayPanel._gPaneImpl.updateGUI();
+				}
 
 			}
 
@@ -61,7 +68,6 @@ public class SteuerZentrale implements ActionListener
 				public GoWest(String string, AdventureMain adv)
 					{
 						super(string, adv);
-						// TODO Auto-generated constructor stub
 					}
 
 				@Override
@@ -85,7 +91,6 @@ public class SteuerZentrale implements ActionListener
 				public GoSouth(String string, AdventureMain adv)
 					{
 						super(string, adv);
-						// TODO Auto-generated constructor stub
 					}
 
 				@Override

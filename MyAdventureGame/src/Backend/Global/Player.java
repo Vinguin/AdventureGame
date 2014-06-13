@@ -17,6 +17,7 @@ public class Player
 			{
 				spielername = bezeichnung;
 				_adventure = adv;
+				
 
 			}
 

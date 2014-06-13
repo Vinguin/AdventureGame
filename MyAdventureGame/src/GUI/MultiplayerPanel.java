@@ -45,6 +45,13 @@ public class MultiplayerPanel extends JPanel
 				ip.setPreferredSize(new Dimension(0, 25));
 
 				nick.setPreferredSize(new Dimension(100, 25));
+				
+				
+				ip.setEditable(false);
+				port.setEditable(false);
+				nick.setEditable(false);
+				join.setEnabled(false);
+				create.setEnabled(false);
 
 				// Auf das Panel klatschen
 				this.add(new JLabel("IP:"));
