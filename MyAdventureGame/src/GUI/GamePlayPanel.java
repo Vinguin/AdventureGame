@@ -22,6 +22,7 @@ public class GamePlayPanel extends JPanel
 			{
 				_gPaneImpl = new GamePaneImpl(this, adv);
 				_adventure = adv;
+			
 
 			}
 

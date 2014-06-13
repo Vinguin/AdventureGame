@@ -44,6 +44,7 @@ public class GamePanel extends JPanel
 				// GameplayPanel, hier findet die Dynamik statt.
 				gameplayPanel = new GamePlayPanel(adv);
 				leftPanel.add(gameplayPanel, BorderLayout.CENTER);
+				
 
 				// MultiplayerPanel
 				adv._mpPanel = new MultiplayerPanel(adv);
@@ -53,7 +54,6 @@ public class GamePanel extends JPanel
 				InfoPanel infoPanel = new InfoPanel();
 				this.add(infoPanel, BorderLayout.LINE_END);
 
-				img = Toolkit.getDefaultToolkit().getImage("res/Wallpaper/gameplayscreen.jpg");
 				
 				this.addKeyListener(new KeyboardListener());
 

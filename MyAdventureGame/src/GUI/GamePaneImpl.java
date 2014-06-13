@@ -4,32 +4,40 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.Timer;
+
 import Backend.Global.AdventureMain;
 import Backend.Global.MapImpl;
+import Backend.Global.TexturepackManager;
 import Backend.World.Küste;
 import Backend.World.Meer;
 import Backend.World.Wiese;
 
-public class GamePaneImpl
+public class GamePaneImpl implements ActionListener
 	{
-
+		private Timer timer = new Timer(500, this);
 		private AdventureMain _adventure;
 		private GamePlayPanel _gPanel;
 		private List<Point> rasta;
 		private int x_klein, y_klein;
 		private MapImpl _implMap;
+		private TexturepackManager _textureManager;
 
 		public GamePaneImpl(GamePlayPanel gamePlayPanel, AdventureMain adv)
 			{
 				_gPanel = gamePlayPanel;
 				_adventure = adv;
+				_textureManager = new TexturepackManager();
+
 				_implMap = new MapImpl(adv);
 
 				rasta = getRasta();
-
+				timer.start();
 			}
 
 		/**
@@ -107,9 +115,9 @@ public class GamePaneImpl
 				List<Point> rastaRoom = getDrawRooms();
 				int width = (int) getFieldSize().getWidth();
 				int height = (int) getFieldSize().getHeight();
-				
-				g.setColor(new Color(0, 178, 238));
-				g.fillRect(0, 0, _gPanel.getWidth(), _gPanel.getHeight());
+
+				// g.setColor(new Color(0, 178, 238));
+				// g.fillRect(0, 0, _gPanel.getWidth(), _gPanel.getHeight());
 
 				for (int i = 0; i < rasta.size(); ++i)
 				{
@@ -125,13 +133,16 @@ public class GamePaneImpl
 					int raumkoordY = rastaRoom.get(i).y;
 
 					if (_adventure._world.alpha[raumkoordX][raumkoordY] instanceof Meer)
-						_implMap.drawRaum("Meer", g, x, y, width, height);
+						// _implMap.drawRaum("Meer", g, x, y, width, height);
+						g.drawImage(_textureManager.wasser, x, y, width, height, null);
 					if (_adventure._world.alpha[raumkoordX][raumkoordY] instanceof Wiese)
-						_implMap.drawRaum("Wiese", g, x, y, width, height);
-					if (_adventure._world.alpha[raumkoordX][raumkoordY].isPlayerHere())
-						_implMap.drawRaum("Spieler", g, x, y, width, height);
+						// _implMap.drawRaum("Wiese", g, x, y, width, height);
+						g.drawImage(_textureManager.wiese, x, y, width, height, null);
+
 					if (_adventure._world.alpha[raumkoordX][raumkoordY] instanceof Küste)
-						_implMap.drawRaum("border", g, x, y, width, height);
+						// _implMap.drawRaum("border", g, x, y, width, height);
+						g.drawImage(_textureManager.sand, x, y, width, height, null);
+
 					if (_adventure._world.alpha[raumkoordX][raumkoordY].isPlayerHere())
 						_implMap.drawRaum("Spieler", g, x, y, width, height);
 
@@ -162,6 +173,12 @@ public class GamePaneImpl
 		public void updateGUI()
 			{
 				_adventure._gamePanel.repaint();
+			}
+
+		@Override
+		public void actionPerformed(ActionEvent arg0)
+			{
+				updateGUI();
 			}
 
 	}
