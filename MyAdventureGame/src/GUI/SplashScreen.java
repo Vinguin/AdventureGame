@@ -53,8 +53,9 @@ public class SplashScreen extends JFrame implements ActionListener
 				this.dispose();
 
 				_adventure._menuPanel = new MenuPanel(_adventure);
-				_adventure._frame = new MainFrame();
+				_adventure._frame = new MainFrame();				
 				_adventure._frame.setContent(_adventure._menuPanel);
+				_adventure._frame.addKeyListener(new KeyboardListener());
 				
 				timer.stop();
 			}

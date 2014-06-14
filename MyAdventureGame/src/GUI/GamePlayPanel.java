@@ -9,7 +9,6 @@ import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import Backend.Commands.KeyboardListener;
 import Backend.Global.AdventureMain;
 
 // Gameplay Panel - Hier findet die Dynamik statt.

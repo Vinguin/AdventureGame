@@ -13,7 +13,6 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import Backend.Commands.KeyboardListener;
 import Backend.Commands.SteuerZentrale;
 import Backend.Commands.iCommandListener;
 import Backend.Global.AdventureMain;
@@ -55,7 +54,6 @@ public class GamePanel extends JPanel
 				this.add(infoPanel, BorderLayout.LINE_END);
 
 				
-				this.addKeyListener(new KeyboardListener());
 
 
 			}

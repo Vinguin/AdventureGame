@@ -157,9 +157,8 @@ public class GamePaneImpl implements ActionListener
 
 				List<Point> temp = new ArrayList<>();
 
-				if (x > 7 && y > 7 && x < 993 && y < 993)
+				if (x > 7 && y > 7 && x < _adventure._world.getWorldSize().getWidth() && y < _adventure._world.getWorldSize().getHeight())
 				{
-					Point obenlinks = new Point(x - 7, y - 7);
 
 					for (int i = 0; i < 15; ++i)
 						for (int j = 0; j < 15; ++j)

@@ -107,9 +107,9 @@ public class MapImpl
 						_adventure._world.getWorldSize().height * (blockgroesse + blockabstand) + 2);
 
 				// Iteriere durch jeden Raum
-				for (int i = 0; i < _adventure._world.getWorldSize().height; ++i)
+				for (int i = 0; i < _adventure._world.getWorldSize().width; ++i)
 				{
-					for (int j = 0; j < _adventure._world.getWorldSize().width; ++j)
+					for (int j = 0; j < _adventure._world.getWorldSize().height; ++j)
 					{
 						int x = i * (blockgroesse + blockabstand) + 2;
 						int y = j * (blockgroesse + blockabstand) + 2;

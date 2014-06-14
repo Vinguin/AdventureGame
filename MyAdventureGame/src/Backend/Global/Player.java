@@ -17,7 +17,6 @@ public class Player
 			{
 				spielername = bezeichnung;
 				_adventure = adv;
-				
 
 			}
 
@@ -132,8 +131,8 @@ public class Player
 
 		public boolean isOnWorld(Raum[][] welt)
 			{
-				for (int i = 0; i < _adventure._world.getWorldSize().getHeight(); ++i)
-					for (int j = 0; j < _adventure._world.getWorldSize().getWidth(); ++j)
+				for (int i = 0; i < _adventure._world.getWorldSize().getWidth(); ++i)
+					for (int j = 0; j < _adventure._world.getWorldSize().getHeight(); ++j)
 						if (welt[i][j] instanceof Wiese)
 							if (welt[i][j].isPlayerHere())
 								return true;

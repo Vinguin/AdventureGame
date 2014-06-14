@@ -31,12 +31,16 @@ public class World
 
 		public void createWorld(Raum[][] welt)
 			{
-				createContinent(welt, "Spawnraum", getRandomXY(20, 300));
+				createContinent(welt, "Spawnraum", getRandomXY(1000, 2000));
 
 				// Erstellt in Welt welt 200 Räume der Größe 20-3000.
 				createXContinent(welt, 20, 3000, 200);
 
-				drawKüste(welt);
+				drawKüste(alpha);
+				drawKüste(alpha);
+				drawKüste(alpha);
+				drawKüste(alpha);
+				drawKüste(alpha);
 
 			}
 
@@ -97,8 +101,8 @@ public class World
 		public void createContinent(Raum[][] kontinent, String raum0, int kontinentgoesse)
 			{
 				räume = getNewRoom(kontinentgoesse);
-				int y = getRandomXY(0, weltBreite - 1);
-				int x = getRandomXY(0, weltHöhe - 1);
+				int y = getRandomXY(0, weltHöhe - 1);
+				int x = getRandomXY(0, weltBreite - 1);
 				kontinent[x][y] = new Wiese(raum0, _adventure);
 				Set<Point> potencialRooms = new HashSet<>();
 
@@ -110,9 +114,8 @@ public class World
 					Wiese raum = räume.get(i);
 					verfügbareRäume = new ArrayList<>(potencialRooms);
 					if (verfügbareRäume.size() == 0)
-					{
 						i = räume.size();
-					} else
+					else
 					{
 						// Alle verfügbaren Räume
 						int zufallsIndex = getRandomXY(0, verfügbareRäume.size() - 1);
@@ -128,19 +131,15 @@ public class World
 					}
 
 				}
-				
 
 			}
 
 		public void createXContinent(Raum[][] welt, int minSize, int maxSize, int anzahl)
 			{
 				for (int i = 0; i < anzahl; ++i)
-				{
 					createContinent(welt, "Romeo" + raumnummer, getRandomXY(minSize, maxSize));
-				}
-				
-				
-				//Füllt den Rest mit "Meer"
+
+				// Füllt den Rest mit "Meer"
 				for (int i = 0; i < weltBreite - 1; ++i)
 					for (int j = 0; j < weltHöhe - 1; ++j)
 
@@ -274,18 +273,10 @@ public class World
 		public boolean isPlayerInWorld()
 			{
 				for (int i = 0; i < weltBreite; ++i)
-				{
 					for (int j = 0; j < weltHöhe; ++j)
-					{
-
 						if (alpha[i][j] instanceof Wiese)
-						{
-
 							return alpha[i][j].isPlayerHere();
 
-						}
-					}
-				}
 				return false;
 
 			}
