@@ -14,7 +14,7 @@ public class World
 	{
 		private AdventureMain _adventure;
 		private int raumnummer;
-		private int weltBreite = 1000, weltHöhe = 1000;
+		private int weltBreite = 500, weltHöhe = 500;
 		public Raum[][] alpha = new Raum[weltBreite][weltHöhe];
 		public Raum[][] beta = new Raum[weltBreite][weltHöhe];
 		public Raum[][] gamma = new Raum[weltBreite][weltHöhe];
@@ -34,7 +34,7 @@ public class World
 				createContinent(welt, "Spawnraum", getRandomXY(1000, 2000));
 
 				// Erstellt in Welt welt 200 Räume der Größe 20-3000.
-				createXContinent(welt, 20, 3000, 200);
+				createXContinent(welt, 20, 3000, 75);
 
 				drawKüste(alpha);
 				drawKüste(alpha);
