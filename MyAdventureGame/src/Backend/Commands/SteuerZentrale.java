@@ -8,150 +8,132 @@ import Backend.Global.AdventureMain;
 import Backend.World.Raum;
 import Backend.World.Wiese;
 
-public class SteuerZentrale implements ActionListener
-	{
-		protected String cmd;
-		protected AdventureMain _adventure;
+public class SteuerZentrale implements ActionListener {
+	protected String cmd;
+	protected AdventureMain _adventure;
 
-		public SteuerZentrale(String string, AdventureMain adv)
-			{
-				cmd = string;
-				_adventure = adv;
-
-			}
-
-		@Override
-		public void actionPerformed(ActionEvent arg0)
-			{
-
-				switch (cmd)
-					{
-
-					case "goNorth":
-						new GoNorth(cmd, _adventure).go();
-						update();
-						break;
-					case "goSouth":
-						new GoSouth(cmd, _adventure).go();
-						update();
-						break;
-					case "goEast":
-						new GoEast(cmd, _adventure).go();
-						update();
-						break;
-					case "goWest":
-						new GoWest(cmd, _adventure).go();
-						update();
-						break;
-
-					default:
-						break;
-					}
-
-			}
-
-		public void update()
-			{
-				if (_adventure._mapFrame == null)
-					_adventure._gamePanel.gameplayPanel._gPaneImpl.updateGUI();
-				else
-				{
-					_adventure._mapFrame.implMap.updateMap();
-					_adventure._gamePanel.gameplayPanel._gPaneImpl.updateGUI();
-				}
-
-			}
-
-		private class GoWest extends SteuerZentrale implements GoManager
-			{
-
-				public GoWest(String string, AdventureMain adv)
-					{
-						super(string, adv);
-					}
-
-				@Override
-				public void go()
-					{
-						Point playerKoordinaten = _adventure._spieler1.getRaumLocation();
-						int x = playerKoordinaten.x;
-						int y = playerKoordinaten.y;
-						Raum currentRoom = _adventure._spieler1.getRaum();
-
-						if (_adventure._world.istRaum(x - 1, y))
-							_adventure._spieler1.setRaumLocation(x - 1, y);
-
-					}
-
-			}
-
-		private class GoSouth extends SteuerZentrale implements GoManager
-			{
-
-				public GoSouth(String string, AdventureMain adv)
-					{
-						super(string, adv);
-					}
-
-				@Override
-				public void go()
-					{
-						Point playerKoordinaten = _adventure._spieler1.getRaumLocation();
-						int x = playerKoordinaten.x;
-						int y = playerKoordinaten.y;
-						Raum currentRoom = _adventure._spieler1.getRaum();
-
-						if (_adventure._world.istRaum(x, y + 1))
-							_adventure._spieler1.setRaumLocation(x, y + 1);
-
-					}
-
-			}
-
-		private class GoNorth extends SteuerZentrale implements GoManager
-			{
-
-				public GoNorth(String string, AdventureMain adv)
-					{
-						super(string, adv);
-					}
-
-				@Override
-				public void go()
-					{
-						Point playerKoordinaten = _adventure._spieler1.getRaumLocation();
-						int x = playerKoordinaten.x;
-						int y = playerKoordinaten.y;
-						Raum currentRoom = _adventure._spieler1.getRaum();
-
-						if (_adventure._world.istRaum(x, y - 1))
-							_adventure._spieler1.setRaumLocation(x, y - 1);
-
-					}
-
-			}
-
-		private class GoEast extends SteuerZentrale implements GoManager
-			{
-
-				public GoEast(String string, AdventureMain adv)
-					{
-						super(string, adv);
-					}
-
-				@Override
-				public void go()
-					{
-						Point playerKoordinaten = _adventure._spieler1.getRaumLocation();
-						int x = playerKoordinaten.x;
-						int y = playerKoordinaten.y;
-						Raum currentRoom = _adventure._spieler1.getRaum();
-
-						if (_adventure._world.istRaum(x + 1, y))
-							_adventure._spieler1.setRaumLocation(x + 1, y);
-
-					}
-
-			}
+	public SteuerZentrale(String string, AdventureMain adv) {
+		cmd = string;
+		_adventure = adv;
 
 	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+
+		switch (cmd) {
+
+		case "goNorth":
+			new GoNorth(cmd, _adventure).go();
+			update();
+			break;
+		case "goSouth":
+			new GoSouth(cmd, _adventure).go();
+			update();
+			break;
+		case "goEast":
+			new GoEast(cmd, _adventure).go();
+			update();
+			break;
+		case "goWest":
+			new GoWest(cmd, _adventure).go();
+			update();
+			break;
+
+		default:
+			break;
+		}
+
+	}
+
+	public void update() {
+		if (_adventure._mapFrame == null)
+			_adventure._gamePanel.gameplayPanel._gPaneImpl.updateGUI();
+		else {
+			_adventure._mapFrame.implMap.updateMap();
+			_adventure._gamePanel.gameplayPanel._gPaneImpl.updateGUI();
+		}
+
+	}
+
+	private class GoWest extends SteuerZentrale implements GoManager {
+
+		public GoWest(String string, AdventureMain adv) {
+			super(string, adv);
+		}
+
+		@Override
+		public void go() {
+			Point playerKoordinaten = _adventure._spieler1.getRaumLocation();
+			int x = playerKoordinaten.x;
+			int y = playerKoordinaten.y;
+			Raum currentRoom = _adventure._spieler1.getRaum();
+
+			if (_adventure._world.istRaum(x - 1, y))
+				_adventure._spieler1.setRaumLocation(x - 1, y);
+
+		}
+
+	}
+
+	private class GoSouth extends SteuerZentrale implements GoManager {
+
+		public GoSouth(String string, AdventureMain adv) {
+			super(string, adv);
+		}
+
+		@Override
+		public void go() {
+			Point playerKoordinaten = _adventure._spieler1.getRaumLocation();
+			int x = playerKoordinaten.x;
+			int y = playerKoordinaten.y;
+			Raum currentRoom = _adventure._spieler1.getRaum();
+
+			if (_adventure._world.istRaum(x, y + 1))
+				_adventure._spieler1.setRaumLocation(x, y + 1);
+
+		}
+
+	}
+
+	private class GoNorth extends SteuerZentrale implements GoManager {
+
+		public GoNorth(String string, AdventureMain adv) {
+			super(string, adv);
+		}
+
+		@Override
+		public void go() {
+			Point playerKoordinaten = _adventure._spieler1.getRaumLocation();
+			int x = playerKoordinaten.x;
+			int y = playerKoordinaten.y;
+			Raum currentRoom = _adventure._spieler1.getRaum();
+
+			if (_adventure._world.istRaum(x, y - 1))
+				_adventure._spieler1.setRaumLocation(x, y - 1);
+
+		}
+
+	}
+
+	private class GoEast extends SteuerZentrale implements GoManager {
+
+		public GoEast(String string, AdventureMain adv) {
+			super(string, adv);
+		}
+
+		@Override
+		public void go() {
+			Point playerKoordinaten = _adventure._spieler1.getRaumLocation();
+			int x = playerKoordinaten.x;
+			int y = playerKoordinaten.y;
+			Raum currentRoom = _adventure._spieler1.getRaum();
+
+			if (_adventure._world.istRaum(x + 1, y))
+				_adventure._spieler1.setRaumLocation(x + 1, y);
+
+		}
+
+	}
+
+}

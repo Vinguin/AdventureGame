@@ -3,12 +3,10 @@ package GUI;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.MediaTracker;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.HashSet;
-import java.util.Set;
+import java.nio.file.Paths;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -27,10 +25,11 @@ public class SplashScreen extends JFrame implements ActionListener
 			{
 				super("Splash");
 				_adventure = adv;
-
+				String path = Paths.get(".").toAbsolutePath().normalize().toString();
 				this.setSize(500, 350);
 				this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				this.setContentPane(new Background("res/Wallpaper/splashscreen.jpg"));
+				System.out.println(path+"/res/Wallpaper/splashscreen.jpg");
+				this.setContentPane(new Background(path+"\\res\\Wallpaper\\splashscreen.jpg"));
 				this.setLocationRelativeTo(null);
 				this.setResizable(false);
 

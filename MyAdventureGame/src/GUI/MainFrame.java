@@ -7,57 +7,48 @@ import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-
 @SuppressWarnings("serial")
-public class MainFrame extends JFrame
-	{
-		private JPanel _currentPanel;
+public class MainFrame extends JFrame {
+	private JPanel _currentPanel;
 
-		public MainFrame()
-			{
-				super();
+	public MainFrame() {
+		super();
 
-				this.setSize(800, 640);
-				this.setLayout(new BorderLayout());
-				this.setVisible(true);
-				this.setLocationRelativeTo(null);
-				this.setResizable(false);
+		this.setSize(800, 640);
+		this.setLayout(new BorderLayout());
+		this.setVisible(true);
+		this.setLocationRelativeTo(null);
+		this.setResizable(false);
 
-		
-
-				// Handle the window close request similarly
-				this.addWindowListener(new WindowAdapter()
-				{
-					public void windowClosing(WindowEvent e)
-						{
-							System.exit(0);
-						}
-				});
-
+		// Handle the window close request similarly
+		this.addWindowListener(new WindowAdapter() {
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
 			}
-
-		/**
-		 * Füllt das JFrame mit Content
-		 * 
-		 * @param panel
-		 */
-		public void setContent(JPanel panel)
-			{
-				_currentPanel = panel;
-				this.getContentPane().removeAll();
-				this.setContentPane(panel);				
-
-			}
-
-		/**
-		 * Gibt das aktuelle Panel wieder
-		 * 
-		 * @return
-		 */
-		public JPanel getCurrentPanel()
-			{
-
-				return _currentPanel;
-			}
+		});
 
 	}
+
+	/**
+	 * Füllt das JFrame mit Content
+	 * 
+	 * @param panel
+	 */
+	public void setContent(JPanel panel) {
+		_currentPanel = panel;
+		this.getContentPane().removeAll();
+		this.setContentPane(panel);
+
+	}
+
+	/**
+	 * Gibt das aktuelle Panel wieder
+	 * 
+	 * @return
+	 */
+	public JPanel getCurrentPanel() {
+
+		return _currentPanel;
+	}
+
+}

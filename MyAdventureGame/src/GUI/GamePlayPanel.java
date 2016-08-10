@@ -12,24 +12,19 @@ import javax.swing.Timer;
 import Backend.Global.AdventureMain;
 
 // Gameplay Panel - Hier findet die Dynamik statt.
-public class GamePlayPanel extends JPanel
-	{
-		public GamePaneImpl _gPaneImpl;
-		private AdventureMain _adventure;
+public class GamePlayPanel extends JPanel {
+	public GamePaneImpl _gPaneImpl;
+	private AdventureMain _adventure;
 
-		public GamePlayPanel(AdventureMain adv)
-			{
-				_gPaneImpl = new GamePaneImpl(this, adv);
-				_adventure = adv;
-			
+	public GamePlayPanel(AdventureMain adv) {
+		_gPaneImpl = new GamePaneImpl(this, adv);
+		_adventure = adv;
 
-			}
-
-		public void paintComponent(Graphics g)
-			{
-				_gPaneImpl.draw(g);			
-
-			}
-
-	
 	}
+
+	public void paintComponent(Graphics g) {
+		_gPaneImpl.draw(g);
+
+	}
+
+}
