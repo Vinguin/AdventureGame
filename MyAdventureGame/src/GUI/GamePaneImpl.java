@@ -14,7 +14,7 @@ import javax.swing.Timer;
 import Backend.Global.AdventureMain;
 import Backend.Global.MapImpl;
 import Backend.Global.TexturepackManager;
-import Backend.World.Küste;
+import Backend.World.Kueste;
 import Backend.World.Meer;
 import Backend.World.Wiese;
 
@@ -69,7 +69,7 @@ public class GamePaneImpl implements ActionListener
 			}
 
 		/**
-		 * Gibt die größe eines Feldes wieder.
+		 * Gibt die grï¿½ï¿½e eines Feldes wieder.
 		 * 
 		 * @return
 		 */
@@ -98,7 +98,7 @@ public class GamePaneImpl implements ActionListener
 			}
 
 		/**
-		 * Gibt eine zufällige Zeit zwischen a und b wieder.
+		 * Gibt eine zufï¿½llige Zeit zwischen a und b wieder.
 		 * 
 		 * @param a
 		 * @param b
@@ -124,11 +124,11 @@ public class GamePaneImpl implements ActionListener
 					// Color color = getRandomColor();
 					// g.setColor(color);
 
-					// Die Koordinaten für das Rasta auf dem Panel.
+					// Die Koordinaten fï¿½r das Rasta auf dem Panel.
 					int x = rasta.get(i).x;
 					int y = rasta.get(i).y;
 
-					// Koordinaten für den jeweiligen Raum
+					// Koordinaten fï¿½r den jeweiligen Raum
 					int raumkoordX = rastaRoom.get(i).x;
 					int raumkoordY = rastaRoom.get(i).y;
 
@@ -139,7 +139,7 @@ public class GamePaneImpl implements ActionListener
 						// _implMap.drawRaum("Wiese", g, x, y, width, height);
 						g.drawImage(_textureManager.wiese, x, y, width, height, null);
 
-					if (_adventure._world.alpha[raumkoordX][raumkoordY] instanceof Küste)
+					if (_adventure._world.alpha[raumkoordX][raumkoordY] instanceof Kueste)
 						// _implMap.drawRaum("border", g, x, y, width, height);
 						g.drawImage(_textureManager.sand, x, y, width, height, null);
 

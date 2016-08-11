@@ -9,7 +9,7 @@ import java.util.Set;
 
 import javax.swing.JTextField;
 
-import Backend.World.Küste;
+import Backend.World.Kueste;
 import Backend.World.Wiese;
 
 public class MapImpl
@@ -129,7 +129,7 @@ public class MapImpl
 								drawRaum("spieler", g, x, y, blockgroesse, blockabstand);
 							}
 
-							if (_adventure._world.alpha[i][j] instanceof Küste
+							if (_adventure._world.alpha[i][j] instanceof Kueste
 									&& !_adventure._world.alpha[i][j].isPlayerHere())
 								drawRaum("border", g, x, y, blockgroesse, blockabstand);
 						}
@@ -140,7 +140,7 @@ public class MapImpl
 			}
 
 		/**
-		 * Zeichne alle Räume ein, die Abstand 1 zu einem gesetzten Raum haben,
+		 * Zeichne alle Rï¿½ume ein, die Abstand 1 zu einem gesetzten Raum haben,
 		 * 
 		 * @param g
 		 * @param set
@@ -155,7 +155,7 @@ public class MapImpl
 					int x = koordinate.x * (blockgroesse + blockabstand) + 2;
 					int y = koordinate.y * (blockgroesse + blockabstand) + 2;
 
-					// Wenn sich Raum an der Küste befindet.
+					// Wenn sich Raum an der Kï¿½ste befindet.
 					if (_adventure._world.getAvailableRooms(koordinate.x, koordinate.y, true).size() > 0)
 						drawRaum("border", g, x, y, blockgroesse, blockabstand);
 
@@ -176,7 +176,7 @@ public class MapImpl
 		private String getRaumBezByXY(int x, int y)
 			{
 				// Richtig runden, sodass X und Y die Ecke oben Links eines
-				// Käastchens wiedergibt.
+				// Kï¿½astchens wiedergibt.
 
 				int i = (int) ((x - 2) / (blockgroesse + blockabstand));
 				int j = (int) ((y - 2) / (blockgroesse + blockabstand));

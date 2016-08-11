@@ -8,17 +8,16 @@ import java.util.List;
 import java.util.Set;
 
 import Backend.Global.AdventureMain;
-import Backend.Global.Player;
 
 public class World {
 	private AdventureMain _adventure;
 	private int raumnummer;
-	private int weltBreite = 500, weltHöhe = 500;
-	public Raum[][] alpha = new Raum[weltBreite][weltHöhe];
-	public Raum[][] beta = new Raum[weltBreite][weltHöhe];
-	public Raum[][] gamma = new Raum[weltBreite][weltHöhe];
+	private int weltBreite = 500, weltHoehe = 500;
+	public Raum[][] alpha = new Raum[weltBreite][weltHoehe];
+	public Raum[][] beta = new Raum[weltBreite][weltHoehe];
+	public Raum[][] gamma = new Raum[weltBreite][weltHoehe];
 
-	private List<Wiese> räume = new ArrayList<>();
+	private List<Wiese> raeume = new ArrayList<>();
 	public Set<Point> freieRaeume = new HashSet<>();
 
 	public World(AdventureMain adv) {
@@ -30,14 +29,14 @@ public class World {
 	public void createWorld(Raum[][] welt) {
 		createContinent(welt, "Spawnraum", getRandomXY(1000, 2000));
 
-		// Erstellt in Welt welt 200 Räume der Größe 20-3000.
+		// Erstellt in Welt welt 200 Rï¿½ume der Grï¿½ï¿½e 20-3000.
 		createXContinent(welt, 100, 3000, 75);
 
-		drawKüste(alpha);
-		drawKüste(alpha);
-		drawKüste(alpha);
-		drawKüste(alpha);
-		drawKüste(alpha);
+		drawKueste(alpha);
+		drawKueste(alpha);
+		drawKueste(alpha);
+		drawKueste(alpha);
+
 
 	}
 
@@ -61,12 +60,12 @@ public class World {
 	public void clearWorld(String weltbezeichnung) {
 		switch (weltbezeichnung) {
 		case "alpha":
-			alpha = new Wiese[weltBreite][weltHöhe];
+			alpha = new Wiese[weltBreite][weltHoehe];
 			break;
 		case "beta":
-			beta = new Wiese[weltBreite][weltHöhe];
+			beta = new Wiese[weltBreite][weltHoehe];
 		case "gamma":
-			gamma = new Wiese[weltBreite][weltHöhe];
+			gamma = new Wiese[weltBreite][weltHoehe];
 
 		default:
 			break;
@@ -75,7 +74,7 @@ public class World {
 	}
 
 	public void setBiome(Raum[][] kontinent) {
-		for (int i = 0; i < weltHöhe; ++i)
+		for (int i = 0; i < weltHoehe; ++i)
 			for (int j = 0; j < weltBreite; ++j) {
 
 			}
@@ -90,28 +89,28 @@ public class World {
 	 * @param kontinentgoesse
 	 */
 	public void createContinent(Raum[][] kontinent, String raum0, int kontinentgoesse) {
-		räume = getNewRoom(kontinentgoesse);
-		int y = getRandomXY(0, weltHöhe - 1);
+		raeume = getNewRoom(kontinentgoesse);
+		int y = getRandomXY(0, weltHoehe - 1);
 		int x = getRandomXY(0, weltBreite - 1);
 		kontinent[x][y] = new Wiese(raum0, _adventure);
 		Set<Point> potencialRooms = new HashSet<>();
 
 		potencialRooms.addAll(getAvailableRooms(x, y, true));
-		List<Point> verfügbareRäume = new ArrayList<>(potencialRooms);
+		List<Point> verfuegbareRaeume = new ArrayList<>(potencialRooms);
 
-		for (int i = 0; i < räume.size(); ++i) {
-			Wiese raum = räume.get(i);
-			verfügbareRäume = new ArrayList<>(potencialRooms);
-			if (verfügbareRäume.size() == 0)
-				i = räume.size();
+		for (int i = 0; i < raeume.size(); ++i) {
+			Wiese raum = raeume.get(i);
+			verfuegbareRaeume = new ArrayList<>(potencialRooms);
+			if (verfuegbareRaeume.size() == 0)
+				i = raeume.size();
 			else {
-				// Alle verfügbaren Räume
-				int zufallsIndex = getRandomXY(0, verfügbareRäume.size() - 1);
+				// Alle verfï¿½gbaren Rï¿½ume
+				int zufallsIndex = getRandomXY(0, verfuegbareRaeume.size() - 1);
 
-				// Füge Zufallsraum hinzu
-				Point koordinate = verfügbareRäume.get(zufallsIndex);
+				// Fï¿½ge Zufallsraum hinzu
+				Point koordinate = verfuegbareRaeume.get(zufallsIndex);
 				kontinent[koordinate.x][koordinate.y] = raum;
-				verfügbareRäume.remove(zufallsIndex);
+				verfuegbareRaeume.remove(zufallsIndex);
 
 				// Update PotentialRooms
 				potencialRooms.addAll(getAvailableRooms(koordinate.x, koordinate.y, true));
@@ -126,23 +125,23 @@ public class World {
 		for (int i = 0; i < anzahl; ++i)
 			createContinent(welt, "Romeo" + raumnummer, getRandomXY(minSize, maxSize));
 
-		// Füllt den Rest mit "Meer"
+		// Fï¿½llt den Rest mit "Meer"
 		for (int i = 0; i < weltBreite - 1; ++i)
-			for (int j = 0; j < weltHöhe - 1; ++j)
+			for (int j = 0; j < weltHoehe - 1; ++j)
 
 				if (welt[i][j] == null)
 					welt[i][j] = new Meer("Meer" + raumnummer, _adventure);
 	}
 
 	/**
-	 * Erzeuge Liste, die mit x Räumen initialisiert wird.
+	 * Erzeuge Liste, die mit x Rï¿½umen initialisiert wird.
 	 * 
 	 * @param anzahl
 	 * @return
 	 */
 	public List<Wiese> getNewRoom(int anzahl) {
 		List<Wiese> temp = new ArrayList<Wiese>();
-		// Initialisiere Arraylist mit 20 Räume.
+		// Initialisiere Arraylist mit 20 Rï¿½ume.
 
 		for (int i = 0; i < anzahl; ++i)
 			temp.add(new Wiese("Wiese" + ++raumnummer, _adventure));
@@ -152,7 +151,7 @@ public class World {
 	}
 
 	/**
-	 * Gibt eine zufällige Zeit zwischen a und b wieder.
+	 * Gibt eine zufï¿½llige Zeit zwischen a und b wieder.
 	 * 
 	 * @param a
 	 * @param b
@@ -162,21 +161,21 @@ public class World {
 		return (int) (Math.random() * (b + 1 - a) + a);
 	}
 
-	public void drawKüste(Raum[][] welt) {
+	public void drawKueste(Raum[][] welt) {
 
 		for (int i = 0; i < weltBreite - 1; ++i)
-			for (int j = 0; j < weltHöhe - 1; ++j)
+			for (int j = 0; j < weltHoehe - 1; ++j)
 
 				if (welt[i][j] instanceof Wiese) {
-					if (isPotencialKüste(i, j)) {
-						welt[i][j] = new Küste("Küste" + raumnummer, _adventure);
+					if (isPotencialKueste(i, j)) {
+						welt[i][j] = new Kueste("Kï¿½ste" + raumnummer, _adventure);
 					}
 				} else
 					welt[i][j] = new Meer("Meer" + raumnummer, _adventure);
 
 	}
 
-	public boolean isPotencialKüste(int i, int j) {
+	public boolean isPotencialKueste(int i, int j) {
 		List<Point> temp1 = new ArrayList<>(getNextRooms(i, j));
 
 		for (int h = 0; h < temp1.size() - 1; ++h)
@@ -189,23 +188,23 @@ public class World {
 	public Set<Point> getAvailableRooms(int i, int j, boolean isRaum) {
 		Set<Point> temp = new HashSet<>();
 
-		// Wenn die Koordinate ein Raum gehört.
+		// Wenn die Koordinate ein Raum gehï¿½rt.
 		if (isRaum) {
 
 			// Darunter
 			if (i + 1 <= weltBreite - 1 && i + 1 >= 0)
 				if (alpha[i + 1][j] == null)
 					temp.add(new Point(i + 1, j));
-			// Darüber
+			// Darï¿½ber
 			if (i - 1 <= weltBreite - 1 && i - 1 >= 0)
 				if (alpha[i - 1][j] == null)
 					temp.add(new Point(i - 1, j));
 			// Rechts
-			if (j + 1 <= weltHöhe - 1 && j + 1 >= 0)
+			if (j + 1 <= weltHoehe - 1 && j + 1 >= 0)
 				if (alpha[i][j + 1] == null)
 					temp.add(new Point(i, j + 1));
 			// Links
-			if (j - 1 <= weltHöhe - 1 && j - 1 >= 0)
+			if (j - 1 <= weltHoehe - 1 && j - 1 >= 0)
 				if (alpha[i][j - 1] == null)
 					temp.add(new Point(i, j - 1));
 			return temp;
@@ -216,16 +215,16 @@ public class World {
 			if (i + 1 <= weltBreite - 1 && i + 1 >= 0)
 				if (alpha[i + 1][j] instanceof Wiese)
 					temp.add(new Point(i + 1, j));
-			// Darüber
+			// Darï¿½ber
 			if (i - 1 <= weltBreite - 1 && i - 1 >= 0)
 				if (alpha[i - 1][j] instanceof Wiese)
 					temp.add(new Point(i - 1, j));
 			// Rechts
-			if (j + 1 <= weltHöhe - 1 && j + 1 >= 0)
+			if (j + 1 <= weltHoehe - 1 && j + 1 >= 0)
 				if (alpha[i][j + 1] instanceof Wiese)
 					temp.add(new Point(i, j + 1));
 			// Links
-			if (j - 1 <= weltHöhe - 1 && j - 1 >= 0)
+			if (j - 1 <= weltHoehe - 1 && j - 1 >= 0)
 				if (alpha[i][j - 1] instanceof Wiese)
 					temp.add(new Point(i, j - 1));
 			return temp;
@@ -233,23 +232,23 @@ public class World {
 		return null;
 	}
 
-	public void setWorldSize(int breite, int höhe) {
+	public void setWorldSize(int breite, int hoehe) {
 		weltBreite = breite;
-		weltHöhe = höhe;
+		weltHoehe = hoehe;
 	}
 
 	/**
-	 * Gibt die Größe der Welt wieder.
+	 * Gibt die Grï¿½ï¿½e der Welt wieder.
 	 * 
 	 * @return
 	 */
 	public Dimension getWorldSize() {
-		return new Dimension(weltBreite, weltHöhe);
+		return new Dimension(weltBreite, weltHoehe);
 	}
 
 	public boolean isPlayerInWorld() {
 		for (int i = 0; i < weltBreite; ++i)
-			for (int j = 0; j < weltHöhe; ++j)
+			for (int j = 0; j < weltHoehe; ++j)
 				if (alpha[i][j] instanceof Wiese)
 					return alpha[i][j].isPlayerHere();
 
@@ -258,7 +257,7 @@ public class World {
 	}
 
 	/**
-	 * Überprüft ob eine angegebene Koordinate einem Raum gehört.
+	 * ï¿½berprï¿½ft ob eine angegebene Koordinate einem Raum gehï¿½rt.
 	 * 
 	 * @param x
 	 * @param y
